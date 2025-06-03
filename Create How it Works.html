@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How it Works</title>
+    <style>
+        .how-it-works {
+            background: #FFFFFF;
+            padding: 100px 20px;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 40px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            position: relative;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            border: 3px solid #E5E7EB;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .step:hover .step-icon {
+            background: #000000;
+            border-color: #000000;
+            transform: translateY(-4px);
+        }
+        
+        .step:hover .step-icon svg {
+            stroke: #FFFFFF;
+            fill: #FFFFFF;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: #000000;
+            color: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .step-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+        
+        .step-description {
+            font-size: 16px;
+            font-weight: 400;
+            color: #6B7280;
+            line-height: 1.5;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+        
+        .connection-line {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 15%, #E5E7EB 15%, #E5E7EB 85%, transparent 85%);
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .how-it-works {
+                padding: 60px 20px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .steps-container {
+                flex-direction: column;
+                gap: 50px;
+            }
+            
+            .connection-line {
+                display: none;
+            }
+            
+            .step-description {
+                max-width: 100%;
+            }
+        }
+        
+        .cta-area {
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 32px;
+            background: #000000;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: #374151;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How it Works</h2>
+                <p class="section-subtitle">Get actionable user insights for your AI product in just three simple steps. No lengthy contracts, no complex setup.</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="connection-line"></div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <div class="step-number">1</div>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Select Users</h3>
+                    <p class="step-description">Choose from 100k+ verified AI users by skill level, experience, and specific interests. Filter by exactly what you need.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <div class="step-number">2</div>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Launch Research</h3>
+                    <p class="step-description">Create your research project with custom questions. We automatically match and notify the most relevant users for participation.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <div class="step-number">3</div>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Get Results</h3>
+                    <p class="step-description">Receive detailed user feedback and actionable insights within 48 hours. Export data or integrate directly with your existing tools.</p>
+                </div>
+            </div>
+            
+            <div class="cta-area">
+                <a href="#" class="cta-button">Start Your First Research Project</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
