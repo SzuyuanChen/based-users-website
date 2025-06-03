@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Based Users - AI User Research Made Simple</title>
     <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent-purple: #8b5cf6;
+            --accent-purple-muted: #1e1b31;
+            --accent-yellow: #f59e0b;
+            --accent-yellow-muted: #2d1f0a;
+            --accent-green: #10b981;
+            --accent-green-muted: #0d2818;
+            --border-primary: #1f1f23;
+            --border-secondary: #27272a;
+            --border-card: #2a2a2a;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,97 +31,80 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-            color: #333;
-            padding-top: 80px;
+            overflow-x: hidden;
+            font-size: 16px;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Navigation */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 15, 15, 0.95);
+            background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--border-primary);
             z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        
-        .navbar.scrolled {
-            background: rgba(15, 15, 15, 0.98);
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
         }
         
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 80px;
+            height: 64px;
         }
         
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             text-decoration: none;
-            color: #FFFFFF;
-            font-size: 20px;
-            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 500;
         }
         
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
-            border-radius: 8px;
+            width: 24px;
+            height: 24px;
+            background: var(--text-primary);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 900;
-            color: #000000;
-            font-size: 16px;
+            font-weight: 600;
+            color: var(--bg-primary);
+            font-size: 12px;
         }
         
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 32px;
             list-style: none;
         }
         
         .nav-link {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 8px 0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease;
         }
         
         .nav-link:hover {
-            color: #FFFFFF;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #FFFFFF;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
+            color: var(--text-primary);
         }
         
         .nav-cta {
@@ -111,1320 +113,1363 @@
             gap: 12px;
         }
         
-        .btn-nav {
-            padding: 10px 20px;
-            background: #FFFFFF;
-            color: #000000;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn-nav:hover {
-            background: #F3F4F6;
-            transform: translateY(-1px);
-        }
-        
         .btn-nav-secondary {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: transparent;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-secondary);
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 6px;
             font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            font-weight: 400;
+            transition: all 0.2s ease;
         }
         
         .btn-nav-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #FFFFFF;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
         }
         
-        /* Mobile menu */
+        .btn-nav-primary {
+            padding: 8px 16px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-nav-primary:hover {
+            background: #e5e5e5;
+        }
+
+        /* Mobile menu button */
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            color: #FFFFFF;
-            font-size: 24px;
+            color: var(--text-secondary);
+            font-size: 20px;
             cursor: pointer;
         }
-        
+
+        /* Mobile menu */
         .mobile-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
-            background: rgba(15, 15, 15, 0.98);
+            background: rgba(10, 10, 10, 0.98);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px;
+            border-bottom: 1px solid var(--border-primary);
+            padding: 20px 24px;
         }
-        
+
         .mobile-menu.active {
             display: block;
         }
-        
+
         .mobile-nav-menu {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             list-style: none;
         }
-        
+
         .mobile-nav-link {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 8px 0;
+            transition: color 0.2s ease;
         }
-        
+
         .mobile-nav-link:hover {
-            color: #FFFFFF;
-            padding-left: 8px;
+            color: var(--text-primary);
         }
-        
+
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        .hero-container {
+            padding: 140px 24px 120px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
         }
-        
+
         .hero-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 600px;
+            margin-bottom: 100px;
         }
-        
+
         .hero-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--accent-purple-muted);
+            border: 1px solid rgba(139, 92, 246, 0.2);
             border-radius: 50px;
-            padding: 8px 20px;
-            margin-bottom: 32px;
-            font-size: 14px;
+            padding: 4px 12px;
+            margin-bottom: 24px;
+            font-size: 12px;
+            color: var(--accent-purple);
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
         }
-        
+
         .hero-badge-dot {
-            width: 8px;
-            height: 8px;
-            background: #10B981;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-purple);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
-        
+
         .hero-title {
             font-size: 64px;
-            font-weight: 700;
-            color: #FFFFFF;
+            font-weight: 600;
             line-height: 1.1;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
             letter-spacing: -0.02em;
         }
-        
-        .hero-title .highlight {
-            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
+
         .hero-subtitle {
-            font-size: 22px;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.8);
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
             line-height: 1.5;
-            margin-bottom: 40px;
         }
-        
+
         .hero-buttons {
             display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 12px;
             margin-bottom: 40px;
         }
-        
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 16px 32px;
-            background: #FFFFFF;
-            color: #000000;
+
+        .btn-hero-primary {
+            padding: 12px 20px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
             text-decoration: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1);
-        }
-        
-        .btn-primary:hover {
-            background: #F3F4F6;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
-        }
-        
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 16px 32px;
-            background: transparent;
-            color: #FFFFFF;
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-        
-        .hero-trust {
-            margin-top: 40px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .trust-text {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 20px;
-        }
-        
-        .trust-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        
-        .trust-stat {
-            text-align: center;
-        }
-        
-        .trust-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: #FFFFFF;
-            display: block;
-        }
-        
-        .trust-label {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Dual Value Section */
-        .dual-value {
-            padding: 100px 20px;
-            background: #F9FAFB;
-        }
-        
-        .dual-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .dual-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-        
-        .dual-title {
-            font-size: 40px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 16px;
-        }
-        
-        .dual-subtitle {
-            font-size: 18px;
-            color: #6B7280;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .dual-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: stretch;
-        }
-        
-        .value-block {
-            background: #FFFFFF;
-            border-radius: 20px;
-            padding: 48px 40px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .value-block:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border-color: #000000;
-        }
-        
-        .value-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            background: #F3F4F6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px auto;
-            transition: all 0.3s ease;
-        }
-        
-        .value-block:hover .value-icon {
-            background: #000000;
-            transform: scale(1.1);
-        }
-        
-        .value-block:hover .value-icon svg {
-            stroke: #FFFFFF;
-        }
-        
-        .value-block-title {
-            font-size: 28px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 16px;
-        }
-        
-        .value-block-subtitle {
-            font-size: 16px;
-            color: #6B7280;
-            margin-bottom: 32px;
-            line-height: 1.6;
-        }
-        
-        .value-features {
-            list-style: none;
-            margin-bottom: 32px;
-            text-align: left;
-        }
-        
-        .value-features li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-size: 15px;
-            color: #374151;
-        }
-        
-        .value-features .check-icon {
-            width: 20px;
-            height: 20px;
-            background: #10B981;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        .value-cta {
-            display: inline-block;
-            padding: 16px 32px;
-            background: #000000;
-            color: #FFFFFF;
-            text-decoration: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .value-cta:hover {
-            background: #374151;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        }
-        
-        .value-cta.secondary {
-            background: transparent;
-            color: #000000;
-            border: 2px solid #000000;
-        }
-        
-        .value-cta.secondary:hover {
-            background: #000000;
-            color: #FFFFFF;
-        }
-        
-        /* How it Works */
-        .how-it-works {
-            background: #FFFFFF;
-            padding: 100px 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-        
-        .section-title {
-            font-size: 40px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 16px;
-        }
-        
-        .section-subtitle {
-            font-size: 18px;
-            color: #6B7280;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        .steps-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 40px;
-            position: relative;
-        }
-        
-        .step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .step-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: #F3F4F6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px auto;
-            border: 3px solid #E5E7EB;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .step:hover .step-icon {
-            background: #000000;
-            border-color: #000000;
-            transform: translateY(-4px);
-        }
-        
-        .step:hover .step-icon svg {
-            stroke: #FFFFFF;
-        }
-        
-        .step-number {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 24px;
-            height: 24px;
-            background: #000000;
-            color: #FFFFFF;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .step-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 12px;
-        }
-        
-        .step-description {
-            font-size: 16px;
-            color: #6B7280;
-            line-height: 1.5;
-            max-width: 280px;
-            margin: 0 auto;
-        }
-        
-        .connection-line {
-            position: absolute;
-            top: 40px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent 15%, #E5E7EB 15%, #E5E7EB 85%, transparent 85%);
-            z-index: 1;
-        }
-        
-        /* Brand Values */
-        .brand-values {
-            background: #F9FAFB;
-            padding: 100px 20px;
-        }
-        
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-        
-        .value-card {
-            background: #FFFFFF;
-            border-radius: 16px;
-            padding: 40px 32px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-            border: 1px solid #E5E7EB;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .value-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-            border-color: #000000;
-        }
-        
-        .value-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #000000, #374151);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .value-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .value-card .value-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
-            background: #F3F4F6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            transition: all 0.3s ease;
-        }
-        
-        .value-card:hover .value-icon {
-            background: #000000;
-            transform: scale(1.1);
-        }
-        
-        .value-card:hover .value-icon svg {
-            stroke: #FFFFFF;
-        }
-        
-        .value-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 16px;
-        }
-        
-        .value-description {
-            font-size: 16px;
-            color: #6B7280;
-            line-height: 1.6;
-        }
-
-        /* Live Stats Section */
-        .live-stats-section {
-            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
-            padding: 80px 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .live-stats-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .live-stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .live-stats-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .live-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 50px;
-            padding: 8px 16px;
-            margin-bottom: 20px;
+            border-radius: 8px;
             font-size: 14px;
             font-weight: 500;
-            color: #10B981;
+            transition: all 0.2s ease;
         }
 
-        .live-dot {
+        .btn-hero-primary:hover {
+            background: #e5e5e5;
+            transform: translateY(-1px);
+        }
+
+        .btn-hero-secondary {
+            padding: 12px 20px;
+            background: transparent;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border: 1px solid var(--border-secondary);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-hero-secondary:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            height: 600px;
+            perspective: 1000px;
+            margin-bottom: 120px;
+        }
+
+        .dashboard-3d {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: rotateX(8deg) rotateY(-12deg);
+        }
+
+        .main-interface {
+            position: absolute;
+            width: 800px;
+            height: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-secondary);
+            border-radius: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+        }
+
+        .interface-header {
+            height: 60px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-primary);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 16px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .window-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-secondary);
+        }
+
+        .interface-title {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .interface-body {
+            display: grid;
+            grid-template-columns: 240px 1fr 300px;
+            height: calc(100% - 60px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-primary);
+            padding: 20px 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            padding: 0 16px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-item:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .sidebar-item.active {
+            background: var(--accent-purple-muted);
+            color: var(--accent-purple);
+        }
+
+        .sidebar-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 24px;
+            overflow: hidden;
+        }
+
+        .content-header {
+            margin-bottom: 24px;
+        }
+
+        .content-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .content-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .research-timeline {
+            position: relative;
+            height: 200px;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 39px,
+                    var(--border-primary) 40px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 19px,
+                    var(--border-primary) 20px
+                );
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .timeline-item {
+            position: absolute;
+            height: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .timeline-item.in-progress {
+            background: var(--accent-yellow-muted);
+            border-color: var(--accent-yellow);
+            color: var(--accent-yellow);
+        }
+
+        .timeline-item:nth-child(1) {
+            top: 30px;
+            left: 20px;
+            width: 120px;
+        }
+
+        .timeline-item:nth-child(2) {
+            top: 70px;
+            left: 60px;
+            width: 140px;
+        }
+
+        .timeline-item:nth-child(3) {
+            top: 110px;
+            left: 120px;
+            width: 100px;
+        }
+
+        .timeline-item:nth-child(4) {
+            top: 150px;
+            left: 180px;
+            width: 110px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Right Panel */
+        .right-panel {
+            background: var(--bg-card);
+            border-left: 1px solid var(--border-primary);
+            padding: 20px;
+        }
+
+        .panel-section {
+            margin-bottom: 24px;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
             width: 8px;
             height: 8px;
-            background: #10B981;
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            background: var(--accent-green);
         }
 
-        .live-stats-title {
-            font-size: 36px;
-            font-weight: 700;
-            color: #FFFFFF;
+        /* Floating Cards */
+        .floating-card {
+            position: absolute;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 8px;
+            padding: 16px;
+            min-width: 200px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .floating-card-1 {
+            top: 15%;
+            left: -15%;
+            transform: rotateY(25deg) rotateX(-5deg);
+        }
+
+        .floating-card-2 {
+            bottom: 20%;
+            right: -10%;
+            transform: rotateY(-20deg) rotateX(5deg);
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
             margin-bottom: 12px;
         }
 
-        .live-stats-subtitle {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 32px 24px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #10B981, #059669);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .stat-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            background: rgba(16, 185, 129, 0.2);
-            border-radius: 12px;
-            display: flex;
+        .card-status {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px auto;
-            font-size: 24px;
-            transition: all 0.3s ease;
+            gap: 6px;
+            font-size: 10px;
+            color: var(--accent-green);
+            background: var(--accent-green-muted);
+            padding: 4px 8px;
+            border-radius: 4px;
         }
 
-        .stat-card:hover .stat-icon {
-            background: #10B981;
-            transform: scale(1.1);
-        }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 8px;
-            display: block;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', 'Monaco', monospace;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stat-change {
-            font-size: 12px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-        }
-
-        .stat-change.positive {
-            color: #10B981;
-        }
-
-        .stat-change.neutral {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .update-time {
-            text-align: center;
-            margin-top: 32px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        /* FAQ */
-        .faq-section {
-            background: #FFFFFF;
-            padding: 100px 20px;
-        }
-        
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            border-bottom: 1px solid #E5E7EB;
-            margin-bottom: 0;
-        }
-        
-        .faq-question {
-            width: 100%;
-            padding: 24px 0;
-            background: none;
-            border: none;
-            text-align: left;
-            font-size: 18px;
-            font-weight: 600;
-            color: #000000;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        
-        .faq-question:hover {
-            color: #374151;
-        }
-        
-        .faq-icon {
-            font-size: 20px;
-            transition: transform 0.3s ease;
-        }
-        
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            font-size: 16px;
-            color: #6B7280;
-            line-height: 1.5;
-        }
-        
-        .faq-answer-content {
-            padding-bottom: 24px;
-        }
-        
-        .faq-item.active .faq-answer {
-            max-height: 200px;
-        }
-        
-        .faq-item.active .faq-icon {
-            transform: rotate(180deg);
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
-            padding: 100px 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        .cta-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .cta-title {
-            font-size: 48px;
-            font-weight: 700;
-            color: #FFFFFF;
-            line-height: 1.2;
-            margin-bottom: 24px;
-        }
-        
-        .cta-subtitle {
-            font-size: 20px;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.5;
-            margin-bottom: 40px;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        /* Footer */
-        .footer {
-            background: #0F0F0F;
-            color: #FFFFFF;
-            padding: 60px 0 30px 0;
-        }
-        
-        .footer-container {
+        /* Dual Value Section */
+        .dual-value {
+            padding: 120px 24px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
         }
-        
-        .footer-main {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 50px;
+
+        .dual-header {
+            max-width: 600px;
+            margin-bottom: 80px;
         }
-        
-        .footer-brand {
-            max-width: 300px;
-        }
-        
-        .footer-logo {
-            display: flex;
+
+        .dual-badge {
+            display: inline-flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            text-decoration: none;
-            color: #FFFFFF;
+            gap: 8px;
+            background: var(--accent-yellow-muted);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 50px;
+            padding: 4px 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: var(--accent-yellow);
+            font-weight: 500;
         }
-        
-        .footer-logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+
+        .dual-title {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .dual-description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .dual-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .dual-item {
+            padding: 32px 0;
+        }
+
+        .dual-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 900;
-            color: #000000;
-            font-size: 16px;
-        }
-        
-        .footer-description {
-            font-size: 16px;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 24px;
-        }
-        
-        .footer-column h4 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #FFFFFF;
-        }
-        
-        .footer-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: #FFFFFF;
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .footer-copyright {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        .footer-legal {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .footer-legal a {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-legal a:hover {
-            color: #FFFFFF;
+            margin-bottom: 16px;
+            color: var(--text-primary);
         }
 
-        /* Pricing Section Styles */
+        .dual-item-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .dual-item-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 120px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-header {
+            max-width: 600px;
+            margin-bottom: 80px;
+        }
+
+        .features-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-green-muted);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 50px;
+            padding: 4px 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+
+        .features-title {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .features-description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-item {
+            padding: 32px 0;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .feature-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Additional Features */
+        .additional-features {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 120px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .how-it-works-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 80px auto;
+        }
+
+        .how-it-works-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-yellow-muted);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 50px;
+            padding: 4px 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: var(--accent-yellow);
+            font-weight: 500;
+        }
+
+        .how-it-works-title {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .how-it-works-description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Audience Tabs */
+        .audience-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        .audience-tab {
+            padding: 12px 20px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-secondary);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .audience-tab.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .audience-content {
+            display: none;
+        }
+
+        .audience-content.active {
+            display: block;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .step-item {
+            text-align: center;
+            padding: 32px 24px;
+            border-radius: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-item:hover {
+            background: var(--bg-secondary);
+            transform: translateY(-4px);
+        }
+
+        .step-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .step-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .step-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Pricing Section */
         .pricing-section {
-            background: #FFFFFF;
-            padding: 100px 20px;
+            padding: 120px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 80px auto;
+        }
+
+        .pricing-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-green-muted);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 50px;
+            padding: 4px 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+
+        .pricing-title {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .pricing-description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-            margin-bottom: 80px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
         }
 
         .pricing-card {
-            background: #FFFFFF;
-            border: 2px solid #E5E7EB;
-            border-radius: 20px;
-            padding: 40px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 32px;
             position: relative;
-            transition: all 0.3s ease;
-            text-align: center;
+            transition: all 0.2s ease;
         }
 
         .pricing-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border-color: #000000;
+            border-color: var(--border-secondary);
+            transform: translateY(-2px);
         }
 
         .pricing-card.featured {
-            border-color: #000000;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            transform: scale(1.05);
+            border-color: var(--text-primary);
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 255, 255, 0.02) 100%);
         }
 
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-8px);
-        }
-
-        .featured-badge {
+        .pricing-card.featured::before {
+            content: "Most Popular";
             position: absolute;
             top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            background: #000000;
-            color: #FFFFFF;
-            padding: 8px 24px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
         }
 
-        .pricing-header {
-            margin-bottom: 32px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid #E5E7EB;
-        }
-
-        .pricing-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #000000;
-            margin-bottom: 8px;
-        }
-
-        .pricing-subtitle {
-            font-size: 16px;
-            color: #6B7280;
+        .pricing-card-header {
             margin-bottom: 24px;
         }
 
-        .pricing-price {
+        .pricing-card-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .pricing-card-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .pricing-card-price {
             display: flex;
             align-items: baseline;
-            justify-content: center;
-            gap: 8px;
+            gap: 4px;
+            margin-bottom: 24px;
         }
 
         .price-amount {
-            font-size: 48px;
-            font-weight: 700;
-            color: #000000;
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .price-unit {
-            font-size: 16px;
-            color: #6B7280;
+            font-size: 14px;
+            color: var(--text-muted);
         }
 
         .pricing-features {
+            list-style: none;
             margin-bottom: 32px;
         }
 
-        .features-list {
-            list-style: none;
-            text-align: left;
-        }
-
-        .features-list li {
+        .pricing-features li {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            font-size: 16px;
-            color: #374151;
-        }
-
-        .features-list svg {
-            color: #10B981;
-            flex-shrink: 0;
-        }
-
-        .pricing-cta {
-            text-align: center;
-        }
-
-        .pricing-btn {
-            display: inline-block;
-            width: 100%;
-            padding: 16px 32px;
-            background: transparent;
-            color: #000000;
-            text-decoration: none;
-            border: 2px solid #000000;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            gap: 8px;
             margin-bottom: 12px;
-        }
-
-        .pricing-btn:hover {
-            background: #000000;
-            color: #FFFFFF;
-            transform: translateY(-2px);
-        }
-
-        .pricing-btn.featured {
-            background: #000000;
-            color: #FFFFFF;
-        }
-
-        .pricing-btn.featured:hover {
-            background: #374151;
-        }
-
-        .pricing-note {
             font-size: 14px;
-            color: #6B7280;
+            color: var(--text-secondary);
         }
 
-        .pricing-bottom {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            padding-top: 60px;
-            border-top: 1px solid #E5E7EB;
+        .pricing-features .check-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--accent-green);
         }
 
-        .pricing-guarantee {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
+        .pricing-card-cta {
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            text-decoration: none;
+            border: 1px solid var(--border-secondary);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .pricing-card-cta:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .pricing-card.featured .pricing-card-cta {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .pricing-card.featured .pricing-card-cta:hover {
+            background: #e5e5e5;
+        }
+
+        /* Pricing Note */
+        .pricing-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        /* Guarantee Section */
+        .guarantee-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
         }
 
         .guarantee-icon {
             width: 64px;
             height: 64px;
-            background: #F3F4F6;
+            background: var(--accent-green-muted);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            margin: 0 auto 16px auto;
+            color: var(--accent-green);
         }
 
-        .guarantee-icon svg {
-            color: #10B981;
-        }
-
-        .guarantee-content h4 {
+        .guarantee-title {
             font-size: 20px;
             font-weight: 600;
-            color: #000000;
+            color: var(--text-primary);
             margin-bottom: 8px;
         }
 
-        .guarantee-content p {
-            font-size: 16px;
-            color: #6B7280;
+        .guarantee-description {
+            font-size: 14px;
+            color: var(--text-secondary);
             line-height: 1.5;
         }
 
-        .pricing-custom {
+        /* FAQ Section */
+        .faq-section {
+            padding: 120px 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-title {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .faq-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 8px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 20px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-secondary);
+        }
+
+        .faq-icon {
+            font-size: 16px;
+            transition: transform 0.2s ease;
+            color: var(--text-muted);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-content {
+            padding: 0 20px 20px 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 24px;
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
         }
 
-        .pricing-custom h4 {
-            font-size: 20px;
+        .cta-title {
+            font-size: 48px;
             font-weight: 600;
-            color: #000000;
-            margin-bottom: 12px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
         }
 
-        .pricing-custom p {
-            font-size: 16px;
-            color: #6B7280;
+        .cta-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
             line-height: 1.5;
         }
 
-        .pricing-custom a {
-            color: #000000;
-            text-decoration: none;
-            font-weight: 600;
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .pricing-custom a:hover {
-            text-decoration: underline;
+        .btn-primary {
+            padding: 12px 20px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            body {
-                padding-top: 70px;
+
+        .btn-primary:hover {
+            background: #e5e5e5;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            padding: 12px 20px;
+            background: transparent;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border: 1px solid var(--border-secondary);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 80px 24px 40px;
+            border-top: 1px solid var(--border-primary);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .footer-logo-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--bg-primary);
+            font-size: 12px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-primary);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-copyright {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-visual {
+                height: 400px;
             }
-            
-            .nav-container {
-                height: 70px;
+
+            .main-interface {
+                width: 600px;
+                height: 400px;
             }
-            
-            .nav-menu,
-            .nav-cta {
-                display: none;
+
+            .interface-body {
+                grid-template-columns: 200px 1fr 240px;
             }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-title {
-                font-size: 42px;
-            }
-            
-            .hero-subtitle {
-                font-size: 18px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-                max-width: 300px;
-                margin: 0 auto 40px auto;
-            }
-            
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .dual-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .steps-container {
-                flex-direction: column;
-                gap: 50px;
-            }
-            
-            .connection-line {
-                display: none;
-            }
-            
-            .values-grid {
+
+            .features-grid,
+            .dual-grid,
+            .steps-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
             }
 
-            .stats-grid {
+            .logos-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
-
-            .stat-card {
-                padding: 24px 16px;
-            }
-
-            .stat-number {
-                font-size: 28px;
-            }
-
-            .live-stats-title {
-                font-size: 24px;
+                gap: 24px;
             }
 
             .pricing-grid {
                 grid-template-columns: 1fr;
-                gap: 24px;
+                gap: 16px;
             }
-            
-            .pricing-card.featured {
-                transform: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu,
+            .nav-cta {
+                display: none;
             }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-8px);
+
+            .mobile-menu-btn {
+                display: block;
             }
-            
-            .pricing-bottom {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                text-align: center;
+
+            .hero {
+                padding: 120px 16px 80px;
             }
-            
-            .pricing-guarantee {
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-buttons {
                 flex-direction: column;
-                text-align: center;
+                max-width: 200px;
             }
-            
+
+            .main-interface {
+                width: 90vw;
+                height: 300px;
+            }
+
+            .interface-body {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar, .right-panel {
+                display: none;
+            }
+
+            .features-title,
+            .pricing-title,
+            .cta-title,
+            .dual-title,
+            .how-it-works-title {
+                font-size: 32px;
+            }
+
+            .audience-tabs {
+                flex-direction: column;
+                max-width: 200px;
+                margin: 0 auto 60px auto;
+            }
+
+            .logos-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                max-width: 200px;
+                margin: 0 auto;
+            }
+
             .footer-main {
                 grid-template-columns: 1fr;
-                gap: 40px;
-                text-align: center;
+                gap: 32px;
             }
-            
+
             .footer-bottom {
                 flex-direction: column;
                 text-align: center;
@@ -1434,676 +1479,636 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="nav-container">
-            <a href="/" class="nav-logo">
+            <a href="index.html" class="nav-logo">
                 <div class="logo-icon">B</div>
                 <span>Based Users</span>
             </a>
             
             <ul class="nav-menu">
+                <li><a href="#features" class="nav-link">Features</a></li>
                 <li><a href="#how-it-works" class="nav-link">How it Works</a></li>
-                <li><a href="#why-choose-us" class="nav-link">Why Us</a></li>
                 <li><a href="#pricing" class="nav-link">Pricing</a></li>
                 <li><a href="#faq" class="nav-link">FAQ</a></li>
             </ul>
             
             <div class="nav-cta">
                 <a href="register.html" class="btn-nav-secondary">Join as Researcher</a>
-                <a href="contact.html"  class="btn-nav">Get Started</a>
+                <a href="contact.html" class="btn-nav-primary">Get Started</a>
             </div>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <span id="menuIcon">☰</span>
-            </button>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
-        
+
         <div class="mobile-menu" id="mobileMenu">
             <ul class="mobile-nav-menu">
+                <li><a href="#features" class="mobile-nav-link">Features</a></li>
                 <li><a href="#how-it-works" class="mobile-nav-link">How it Works</a></li>
-                <li><a href="#why-choose-us" class="mobile-nav-link">Why Us</a></li>
                 <li><a href="#pricing" class="mobile-nav-link">Pricing</a></li>
                 <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
                 <li><a href="register.html" class="mobile-nav-link">Join as Researcher</a></li>
-                <li><a href="contact.html"  class="mobile-nav-link">Get Started</a></li>
+                <li><a href="contact.html" class="mobile-nav-link">Get Started</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <div class="hero-badge-dot"></div>
-                    <span>Trusted by 100+ AI startups</span>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <div class="hero-badge-dot"></div>
+                <span>Trusted by 100+ AI startups</span>
+            </div>
+            
+            <h1 class="hero-title">AI User Research Made Simple</h1>
+            
+            <p class="hero-subtitle">
+                Connect with verified AI users and get actionable insights in 48 hours. No complex setup, no lengthy contracts, just real feedback from real users.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="contact.html" class="btn-hero-primary">Start Your Research</a>
+                <a href="register.html" class="btn-hero-secondary">
+                    Join as Researcher & Earn
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Hero Visual -->
+        <div class="hero-visual">
+            <div class="dashboard-3d">
+                <div class="main-interface">
+                    <div class="interface-header">
+                        <div class="window-controls">
+                            <div class="window-control"></div>
+                            <div class="window-control"></div>
+                            <div class="window-control"></div>
+                        </div>
+                        <div class="interface-title">Based Users Research Dashboard</div>
+                    </div>
+                    
+                    <div class="interface-body">
+                        <!-- Sidebar -->
+                        <div class="sidebar">
+                            <div class="sidebar-section">
+                                <div class="sidebar-title">Projects</div>
+                                <div class="sidebar-item active">
+                                    <div class="sidebar-icon">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                        </svg>
+                                    </div>
+                                    AI Tool Research
+                                </div>
+                                <div class="sidebar-item">
+                                    <div class="sidebar-icon">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                        </svg>
+                                    </div>
+                                    Expert Interviews
+                                </div>
+                            </div>
+                            <div class="sidebar-section">
+                                <div class="sidebar-title">Team</div>
+                                <div class="sidebar-item">
+                                    <div class="sidebar-icon">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="9" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
+                                    100k+ Researchers
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Content -->
+                        <div class="main-content">
+                            <div class="content-header">
+                                <div class="content-title">AI Product Feedback Session</div>
+                                <div class="content-subtitle">Get real user insights in 48 hours</div>
+                            </div>
+                            
+                            <div class="research-timeline">
+                                <div class="timeline-item">User Matching</div>
+                                <div class="timeline-item in-progress">Research Active</div>
+                                <div class="timeline-item">Analysis</div>
+                                <div class="timeline-item">Final Report</div>
+                            </div>
+                            
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <div class="metric-value">32</div>
+                                    <div class="metric-label">Active Sessions</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-value">95%</div>
+                                    <div class="metric-label">Response Rate</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-value">4.8</div>
+                                    <div class="metric-label">Quality Score</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel -->
+                        <div class="right-panel">
+                            <div class="panel-section">
+                                <div class="panel-title">Recent Activity</div>
+                                <div class="status-item">
+                                    <div class="status-dot"></div>
+                                    Expert interviews completed
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-dot"></div>
+                                    Analysis in progress
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-dot"></div>
+                                    Reports ready for review
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <h1 class="hero-title">
-                    AI User Research<br>
-                    <span class="highlight">Made Simple</span>
-                </h1>
-                
-                <p class="hero-subtitle">
-                    Connect with verified AI users and get actionable insights in 48 hours. No complex setup, no lengthy contracts, just real feedback from real users.
-                </p>
-                
-                <div class="hero-buttons">
-                    <a href="contact.html"  class="btn-primary">
-                        Start Your Research
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="7" y1="17" x2="17" y2="7"/>
-                            <polyline points="7,7 17,7 17,17"/>
-                        </svg>
-                    </a>
-                    <a href="register.html" class="btn-secondary">
-                        Join as Researcher & Earn
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                    </a>
+
+                <!-- Floating Cards -->
+                <div class="floating-card floating-card-1">
+                    <div class="card-title">Expert Interview - $45</div>
+                    <div class="card-description">45-min deep dive with AI professional covering business impact and adoption patterns</div>
+                    <div class="card-status">
+                        <div style="width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%;"></div>
+                        Completed
+                    </div>
                 </div>
-                
-                <div class="hero-trust">
-                    <p class="trust-text">Join the AI research revolution</p>
-                    <div class="trust-stats">
-                        <div class="trust-stat">
-                            <span class="trust-number">100k+</span>
-                            <span class="trust-label">Verified Users</span>
-                        </div>
-                        <div class="trust-stat">
-                            <span class="trust-number">48hrs</span>
-                            <span class="trust-label">Avg Delivery</span>
-                        </div>
-                        <div class="trust-stat">
-                            <span class="trust-number">95%</span>
-                            <span class="trust-label">Satisfaction</span>
-                        </div>
+
+                <div class="floating-card floating-card-2">
+                    <div class="card-title">Quick Feedback - $15</div>
+                    <div class="card-description">15-min product trial with usability assessment and immediate insights</div>
+                    <div class="card-status">
+                        <div style="width: 6px; height: 6px; background: var(--accent-yellow); border-radius: 50%;"></div>
+                        In Progress
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Company Logos -->
+    <section class="company-logos">
+        <div class="logos-subtitle">Used by AI teams from YC startups to leading tech companies.<br>Join companies already getting better user insights.</div>
+        <div class="logos-grid">
+            <div class="logo-item">Startup A</div>
+            <div class="logo-item">Startup B</div>
+            <div class="logo-item">Startup C</div>
+            <div class="logo-item">Startup D</div>
+        </div>
+    </section>
+
     <!-- Dual Value Proposition -->
     <section class="dual-value">
-        <div class="dual-container">
-            <div class="dual-header">
-                <h2 class="dual-title">Built for Everyone in AI</h2>
-                <p class="dual-subtitle">Whether you're building AI products or passionate about AI technology, Based Users connects you with the right opportunities</p>
+        <div class="dual-header">
+            <div class="dual-badge">
+                <div style="width: 6px; height: 6px; background: var(--accent-yellow); border-radius: 50%;"></div>
+                <span>Built for everyone in AI</span>
+            </div>
+            <h2 class="dual-title">Whether you're building or using AI</h2>
+            <p class="dual-description">
+                Based Users connects AI companies with real users for authentic feedback, while helping AI enthusiasts earn money sharing their expertise.
+            </p>
+        </div>
+        
+        <div class="dual-grid">
+            <div class="dual-item">
+                <div class="dual-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3 class="dual-item-title">For AI Companies</h3>
+                <p class="dual-item-description">Get real user feedback to build better AI products. 100k+ verified users, 48-hour delivery, detailed insights.</p>
             </div>
             
-            <div class="dual-grid">
-                <!-- For AI Companies -->
-                <div class="value-block">
-                    <div class="value-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                            <path d="M2 17l10 5 10-5"/>
-                            <path d="M2 12l10 5 10-5"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-block-title">For AI Companies</h3>
-                    <p class="value-block-subtitle">Get real user feedback to build better AI products</p>
-                    
-                    <ul class="value-features">
-                        <li>
-                            <div class="check-icon">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                                    <polyline points="20,6 9,17 4,12"/>
-                                </svg>
-                            </div>
-                            100k+ verified AI users ready to test
-                        </li>
-                        <li>
-                            <div class="check-icon">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                                    <polyline points="20,6 9,17 4,12"/>
-                                </svg>
-                            </div>
-                            48-hour delivery of actionable insights
-                        </li>
-                        <li>
-                            <div class="check-icon">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                                    <polyline points="20,6 9,17 4,12"/>
-                                </svg>
-                            </div>
-                            Filter by experience, industry, use cases
-                        </li>
-                        <li>
-                            <div class="check-icon">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                                    <polyline points="20,6 9,17 4,12"/>
-                                </svg>
-                            </div>
-                            Detailed reports with recommendations
-                        </li>
-                    </ul>
-                    
-                    <a href="contact.html"  class="value-cta">Start Your Research</a>
+            <div class="dual-item">
+                <div class="dual-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
                 </div>
-                
-                <!-- For AI Users -->
-                <div class="value-block">
-                    <div class="value-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-block-title">For AI Enthusiasts</h3>
-                    <p class="value-block-subtitle">Share your expertise and earn money testing AI products</p>
-                    
-                    <ul class="value-features">
-                        <li>
-                            <div class="check-icon">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                                    <polyline points="20,6 9,17 4,12"/>
-                                </svg>
-                            </div>
-                            Earn $15-45 per research session
-                        </li>
-                        <li>
-                            <div class="check-icon">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                                    <polyline points="20,6 9,17 4,12"/>
-                                </svg>
-                            </div>
-                            Test cutting-edge AI products first
-                        </li>
-                        <li>
-                            <div class="check-icon">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                                    <polyline points="20,6 9,17 4,12"/>
-                                </svg>
-                            </div>
-                            Flexible schedule, work from anywhere
-                        </li>
-                        <li>
-                            <div class="check-icon">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                                    <polyline points="20,6 9,17 4,12"/>
-                                </svg>
-                            </div>
-                            Shape the future of AI products
-                        </li>
-                    </ul>
-                    
-                    <a href="register.html" class="value-cta secondary">Join as Researcher</a>
+                <h3 class="dual-item-title">For AI Enthusiasts</h3>
+                <p class="dual-item-description">Share your expertise and earn money testing cutting-edge AI products. $15-45 per session, flexible schedule.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="features-header">
+            <div class="features-badge">
+                <div style="width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%;"></div>
+                <span>Why choose Based Users</span>
+            </div>
+            <h2 class="features-title">Research you'll love using</h2>
+            <p class="features-description">
+                Based Users is shaped by the practices that distinguish world-class AI teams: relentless focus on real users and commitment to quality insights.
+            </p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
                 </div>
+                <h3 class="feature-title">Quality AI Users</h3>
+                <p class="feature-description">100k+ verified AI enthusiasts and professionals, not random survey responses. Each researcher is manually screened.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12,6 12,12 16,14"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Fast Results</h3>
+                <p class="feature-description">Get actionable insights in 48 hours, not weeks. Built for teams that ship fast and iterate quickly.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Transparent Process</h3>
+                <p class="feature-description">See exactly where your money goes and how users are selected. Full visibility into matching and rewards.</p>
+            </div>
+        </div>
+
+        <!-- Additional Features -->
+        <div class="additional-features">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Flexible Research</h3>
+                <p class="feature-description">From quick 15-minute tests to detailed 45-minute interviews. Customize questions, target specific user segments, and scale as needed.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                        <path d="M9 14l2 2 4-4"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Actionable Reports</h3>
+                <p class="feature-description">Detailed insights with user quotes, behavior patterns, and specific recommendations. Data you can immediately act on to improve your product.</p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Expert Support</h3>
+                <p class="feature-description">Our team helps design effective research questions, select optimal user groups, and interpret results for maximum impact on your product decisions.</p>
             </div>
         </div>
     </section>
 
     <!-- How it Works -->
     <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">How it Works</h2>
-                <p class="section-subtitle">Get actionable user insights for your AI product in just three simple steps. No lengthy contracts, no complex setup.</p>
+        <div class="how-it-works-header">
+            <div class="how-it-works-badge">
+                <div style="width: 6px; height: 6px; background: var(--accent-yellow); border-radius: 50%;"></div>
+                <span>Simple process</span>
             </div>
-            
-            <div class="steps-container">
-                <div class="connection-line"></div>
-                
-                <div class="step">
-                    <div class="step-icon">
-                        <div class="step-number">1</div>
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </div>
+            <h2 class="how-it-works-title">How it works</h2>
+            <p class="how-it-works-description">
+                Get actionable user insights for your AI product in just three simple steps. Clear process for both clients and researchers.
+            </p>
+        </div>
+        
+        <!-- Audience Tabs -->
+        <div class="audience-tabs">
+            <button class="audience-tab active" data-audience="clients">For AI Companies</button>
+            <button class="audience-tab" data-audience="researchers">For Researchers</button>
+        </div>
+
+        <!-- Client Process -->
+        <div class="audience-content active" id="clients-content">
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
                     <h3 class="step-title">Select Users</h3>
                     <p class="step-description">Choose from 100k+ verified AI users by skill level, experience, and specific interests. Filter by exactly what you need.</p>
                 </div>
                 
-                <div class="step">
-                    <div class="step-icon">
-                        <div class="step-number">2</div>
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-                            <polyline points="14,2 14,8 20,8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="16" y1="17" x2="8" y2="17"/>
-                            <polyline points="10,9 9,9 8,9"/>
-                        </svg>
-                    </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
                     <h3 class="step-title">Launch Research</h3>
-                    <p class="step-description">Create your research project with custom questions. We automatically match and notify the most relevant users for participation.</p>
+                    <p class="step-description">Create your research project with custom questions. We automatically match and notify the most relevant users.</p>
                 </div>
                 
-                <div class="step">
-                    <div class="step-icon">
-                        <div class="step-number">3</div>
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
-                        </svg>
-                    </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
                     <h3 class="step-title">Get Results</h3>
-                    <p class="step-description">Receive detailed user feedback and actionable insights within 48 hours. Export data or integrate directly with your existing tools.</p>
+                    <p class="step-description">Receive detailed user feedback and actionable insights within 48 hours. Export data or integrate with your tools.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Researcher Process -->
+        <div class="audience-content" id="researchers-content">
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Apply & Get Verified</h3>
+                    <p class="step-description">Complete our application and verification process. We check your AI experience and technical background to ensure quality matches.</p>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Receive Invitations</h3>
+                    <p class="step-description">Get matched with research opportunities that fit your profile. Choose which studies to participate in based on your availability.</p>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Earn Money</h3>
+                    <p class="step-description">Complete research sessions and get paid within 48 hours via PayPal. Earn $15-45 per session based on study complexity.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="brand-values" id="why-choose-us">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Why AI Companies Choose Based Users</h2>
-                <p class="section-subtitle">Real users, real insights, real results - without the traditional research hassle</p>
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="pricing-header">
+            <div class="pricing-badge">
+                <div style="width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%;"></div>
+                <span>Simple, transparent pricing</span>
             </div>
-            
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 12l2 2 4-4"/>
-                            <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
-                            <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
-                            <path d="M3 12c0 5.5 4.5 10 10 10s10-4.5 10-10"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Quality Users</h3>
-                    <p class="value-description">100k+ verified AI enthusiasts and professionals, not random surveys. Each user is manually screened for relevant experience and expertise.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="12,6 12,12 16,14"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Fast Results</h3>
-                    <p class="value-description">Get actionable insights in 48 hours, not weeks of waiting. Our streamlined process and engaged user base ensures rapid, quality feedback.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Transparent Process</h3>
-                    <p class="value-description">See exactly where your money goes and how users are selected. Full visibility into user matching, participation, and reward distribution.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                            <path d="M2 17l10 5 10-5"/>
-                            <path d="M2 12l10 5 10-5"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Flexible Research</h3>
-                    <p class="value-description">From quick 15-minute tests to detailed 45-minute interviews. Customize questions, target specific user segments, and scale as needed.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-                            <path d="M9 14l2 2 4-4"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Actionable Reports</h3>
-                    <p class="value-description">Detailed insights with user quotes, behavior patterns, and specific recommendations. Data you can immediately act on to improve your product.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </div>
-                    <h3 class="value-title">Expert Support</h3>
-                    <p class="value-description">Our team helps design effective research questions, select optimal user groups, and interpret results for maximum impact on your product decisions.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Live Stats Section -->
-    <section class="live-stats-section">
-        <div class="live-stats-container">
-            <div class="live-stats-header">
-                <div class="live-indicator">
-                    <div class="live-dot"></div>
-                    <span>Live Data</span>
-                </div>
-                <h2 class="live-stats-title">Research in Progress</h2>
-                <p class="live-stats-subtitle">Real-time activity on our platform</p>
-            </div>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">🚀</div>
-                    <span class="stat-number" id="activeProjects">12</span>
-                    <div class="stat-label">Active Projects</div>
-                    <div class="stat-change positive">
-                        <span>+3</span>
-                        <span>since yesterday</span>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">👥</div>
-                    <span class="stat-number" id="onlineUsers">847</span>
-                    <div class="stat-label">Researchers Online</div>
-                    <div class="stat-change positive">
-                        <span>+124</span>
-                        <span>this hour</span>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">⏱️</div>
-                    <span class="stat-number" id="avgResponseTime">23</span>
-                    <div class="stat-label">Avg Response (min)</div>
-                    <div class="stat-change positive">
-                        <span>-5min</span>
-                        <span>improvement</span>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">💰</div>
-                    <span class="stat-number" id="totalEarnings">$2.1K</span>
-                    <div class="stat-label">Paid Today</div>
-                    <div class="stat-change positive">
-                        <span>+$340</span>
-                        <span>last hour</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="update-time">
-                Last updated: <span id="lastUpdate">2 seconds ago</span>
-            </div>
-        </div>
-    </section>
-
-<!-- Pricing Section -->
-<section class="pricing-section" id="pricing">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Simple, Transparent Pricing</h2>
-            <p class="section-subtitle">Choose the research type that fits your needs. All packages include user matching, data collection, and detailed reports.</p>
+            <h2 class="pricing-title">Choose your research type</h2>
+            <p class="pricing-description">
+                All packages include user matching, data collection, and detailed reports with actionable insights.
+            </p>
         </div>
         
         <div class="pricing-grid">
-            <!-- Quick Feedback -->
             <div class="pricing-card">
-                <div class="pricing-header">
-                    <h3 class="pricing-title">Quick Feedback</h3>
-                    <p class="pricing-subtitle">Perfect for rapid product validation</p>
-                    <div class="pricing-price">
-                        <span class="price-amount">$12</span>
-                        <span class="price-unit">per user</span>
-                    </div>
+                <div class="pricing-card-header">
+                    <h3 class="pricing-card-title">Quick Feedback</h3>
+                    <p class="pricing-card-subtitle">Perfect for rapid validation</p>
                 </div>
-                
-                <div class="pricing-features">
-                    <ul class="features-list">
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            15-minute product trial
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            10 standard questions
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            Basic feedback report
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            24-48 hour delivery
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            User reward: $3 per participant
-                        </li>
-                    </ul>
+                <div class="pricing-card-price">
+                    <span class="price-amount">$12</span>
+                    <span class="price-unit">per user</span>
                 </div>
-                
-                <div class="pricing-cta">
-                    <a href="contact.html" class="pricing-btn">Get Started</a>
-                    <p class="pricing-note">Minimum 10 users</p>
-                </div>
+                <ul class="pricing-features">
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        15-minute product trial
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        10 standard questions
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        Basic feedback report
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        24-48 hour delivery
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        User reward: $3 per participant
+                    </li>
+                </ul>
+                <a href="contact.html" class="pricing-card-cta">Get Started</a>
+                <div class="pricing-note">Minimum 10 users</div>
             </div>
             
-            <!-- Deep Experience -->
             <div class="pricing-card featured">
-                <div class="featured-badge">Most Popular</div>
-                <div class="pricing-header">
-                    <h3 class="pricing-title">Deep Experience</h3>
-                    <p class="pricing-subtitle">Comprehensive user experience research</p>
-                    <div class="pricing-price">
-                        <span class="price-amount">$25</span>
-                        <span class="price-unit">per user</span>
-                    </div>
+                <div class="pricing-card-header">
+                    <h3 class="pricing-card-title">Deep Experience</h3>
+                    <p class="pricing-card-subtitle">Comprehensive user research</p>
                 </div>
-                
-                <div class="pricing-features">
-                    <ul class="features-list">
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            30-minute complete experience
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            Detailed usage report
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            Improvement suggestions
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            UX analysis & insights
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            User reward: $8 per participant
-                        </li>
-                    </ul>
+                <div class="pricing-card-price">
+                    <span class="price-amount">$25</span>
+                    <span class="price-unit">per user</span>
                 </div>
-                
-                <div class="pricing-cta">
-                    <a href="contact.html" class="pricing-btn featured">Get Started</a>
-                    <p class="pricing-note">Minimum 15 users</p>
-                </div>
+                <ul class="pricing-features">
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        30-minute complete experience
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        Detailed usage report
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        Improvement suggestions
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        UX analysis & insights
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        User reward: $8 per participant
+                    </li>
+                </ul>
+                <a href="contact.html" class="pricing-card-cta">Get Started</a>
+                <div class="pricing-note">Minimum 15 users</div>
             </div>
             
-            <!-- Enterprise Decision -->
             <div class="pricing-card">
-                <div class="pricing-header">
-                    <h3 class="pricing-title">Enterprise Decision</h3>
-                    <p class="pricing-subtitle">In-depth business user research</p>
-                    <div class="pricing-price">
-                        <span class="price-amount">$45</span>
-                        <span class="price-unit">per user</span>
-                    </div>
+                <div class="pricing-card-header">
+                    <h3 class="pricing-card-title">Enterprise Decision</h3>
+                    <p class="pricing-card-subtitle">Strategic business insights</p>
                 </div>
-                
-                <div class="pricing-features">
-                    <ul class="features-list">
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            45-minute expert interview
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            Business decision analysis
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            ROI & budget evaluation
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            Purchase decision insights
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20,6 9,17 4,12"/>
-                            </svg>
-                            User reward: $15 per participant
-                        </li>
-                    </ul>
+                <div class="pricing-card-price">
+                    <span class="price-amount">$45</span>
+                    <span class="price-unit">per user</span>
                 </div>
-                
-                <div class="pricing-cta">
-                    <a href="contact.html" class="pricing-btn">Get Started</a>
-                    <p class="pricing-note">Minimum 8 users</p>
-                </div>
+                <ul class="pricing-features">
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        45-minute expert interview
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        Business decision analysis
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        ROI & budget evaluation
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        Purchase decision insights
+                    </li>
+                    <li>
+                        <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                        User reward: $15 per participant
+                    </li>
+                </ul>
+                <a href="contact.html" class="pricing-card-cta">Get Started</a>
+                <div class="pricing-note">Minimum 8 users</div>
             </div>
         </div>
-        
-        <div class="pricing-bottom">
-            <div class="pricing-guarantee">
-                <div class="guarantee-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 12l2 2 4-4"/>
-                        <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
-                        <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
-                        <path d="M3 12c0 5.5 4.5 10 10 10s10-4.5 10-10"/>
-                    </svg>
-                </div>
-                <div class="guarantee-content">
-                    <h4>Quality Guarantee</h4>
-                    <p>Not satisfied with the research quality? Get a full refund within 7 days. We stand behind our verified users and insights.</p>
-                </div>
+
+        <!-- Guarantee Section -->
+        <div class="guarantee-section">
+            <div class="guarantee-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                    <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+                    <path d="M3 12c0 5.5 4.5 10 10 10s10-4.5 10-10"/>
+                </svg>
             </div>
-            
-            <div class="pricing-custom">
-                <h4>Need something custom?</h4>
-                <p>We offer specialized research packages for unique requirements. <a href="contact.html">Contact us</a> for custom pricing and project scoping.</p>
-            </div>
+            <h4 class="guarantee-title">Quality Guarantee</h4>
+            <p class="guarantee-description">Not satisfied with the research quality? Get a full refund within 7 days. We stand behind our verified users and insights.</p>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- FAQ Section -->
     <section class="faq-section" id="faq">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <p class="section-subtitle">Everything you need to know about our AI user research platform</p>
+        <div class="faq-header">
+            <h2 class="faq-title">Frequently Asked Questions</h2>
+            <p class="faq-subtitle">Everything you need to know about our AI user research platform</p>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do you verify user quality?
+                    <span class="faq-icon">↓</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We manually verify each user's AI experience through portfolio review, LinkedIn validation, and screening questionnaires. Each user is tested for real AI tool usage and technical understanding.
+                    </div>
+                </div>
             </div>
             
-            <div class="faq-container">
-                <div class="faq-item">
-                    <button class="faq-question">
-                        How do you verify user quality?
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            We manually verify each user's AI experience through portfolio review, LinkedIn validation, and initial screening questionnaires. Each user is tested for real AI tool usage and technical understanding.
-                        </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What types of AI products can you research?
+                    <span class="faq-icon">↓</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        We cover AI tools, hardware, developer APIs, enterprise solutions, and consumer AI applications. From ChatGPT competitors to specialized business AI tools.
                     </div>
                 </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question">
-                        What types of AI products can you research?
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            We cover AI tools, hardware, developer APIs, enterprise solutions, and consumer AI applications. From ChatGPT competitors to specialized business AI tools.
-                        </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    How fast can I get results?
+                    <span class="faq-icon">↓</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Most research projects are completed within 48-72 hours after user matching. Enterprise projects may take up to 1 week for comprehensive analysis.
                     </div>
                 </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question">
-                        How fast can I get results?
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Most research projects are completed within 48-72 hours after user matching. Enterprise projects may take up to 1 week for comprehensive analysis.
-                        </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can I choose specific user types?
+                    <span class="faq-icon">↓</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes, you can filter by experience level, industry, technical background, specific AI tool usage, company size, and job roles to get exactly the right feedback.
                     </div>
                 </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question">
-                        Can I choose specific user types?
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Yes, you can filter by experience level, industry, technical background, specific AI tool usage, company size, and job roles to get exactly the right feedback.
-                        </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do users get paid?
+                    <span class="faq-icon">↓</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Users are paid within 48 hours via PayPal after completing research sessions. Payment ranges from $15-45 depending on session length and complexity.
                     </div>
                 </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question">
-                        How do users get paid?
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Users are paid within 48 hours via PayPal after completing research sessions. Payment ranges from $15-45 depending on session length and complexity.
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <button class="faq-question">
-                        Do you offer refunds?
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Yes, if you're not satisfied with the research quality, we offer full refunds within 7 days. We stand behind our user quality and insights.
-                        </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    Do you offer refunds?
+                    <span class="faq-icon">↓</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes, if you're not satisfied with the research quality, we offer full refunds within 7 days. We stand behind our user quality and insights.
                     </div>
                 </div>
             </div>
@@ -2112,26 +2117,24 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="cta-container">
-            <h2 class="cta-title">Ready to Get Started?</h2>
-            <p class="cta-subtitle">Join 100+ AI companies who've made better product decisions with real user feedback. Start your first research project in minutes.</p>
-            
-            <div class="cta-buttons">
-                <a href="contact.html"  class="btn-primary">
-                    Start Your Research
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="7" y1="17" x2="17" y2="7"/>
-                        <polyline points="7,7 17,7 17,17"/>
-                    </svg>
-                </a>
-                <a href="register.html" class="btn-secondary">
-                    Join as Researcher
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 6v6l4 2"/>
-                    </svg>
-                </a>
-            </div>
+        <h2 class="cta-title">Ready to Get Started?</h2>
+        <p class="cta-subtitle">Join 100+ AI companies who've made better product decisions with real user feedback. Start your first research project in minutes.</p>
+        
+        <div class="cta-buttons">
+            <a href="contact.html" class="btn-primary">
+                Start Your Research
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="7" y1="17" x2="17" y2="7"/>
+                    <polyline points="7,7 17,7 17,17"/>
+                </svg>
+            </a>
+            <a href="register.html" class="btn-secondary">
+                Join as Researcher
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+            </a>
         </div>
     </section>
 
@@ -2140,7 +2143,7 @@
         <div class="footer-container">
             <div class="footer-main">
                 <div class="footer-brand">
-                    <a href="/" class="footer-logo">
+                    <a href="index.html" class="footer-logo">
                         <div class="footer-logo-icon">B</div>
                         <span>Based Users</span>
                     </a>
@@ -2153,10 +2156,10 @@
                     <h4>Product</h4>
                     <ul class="footer-links">
                         <li><a href="#how-it-works">How it Works</a></li>
-                        <li><a href="#why-choose-us">Why Us</a></li>
+                        <li><a href="#features">Features</a></li>
                         <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#faq">FAQ</a></li>
-                        <li><a href="contact.html" >Get Started</a></li>
+                        <li><a href="contact.html">Get Started</a></li>
                     </ul>
                 </div>
                 
@@ -2174,7 +2177,7 @@
                     <h4>Company</h4>
                     <ul class="footer-links">
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html" >Contact</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                         <li><a href="careers.html">Careers</a></li>
                         <li><a href="blog.html">Blog</a></li>
                     </ul>
@@ -2197,22 +2200,41 @@
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
+            const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
             } else {
-                navbar.classList.remove('scrolled');
+                navbar.style.background = 'rgba(10, 10, 10, 0.8)';
             }
         });
 
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
-        const menuIcon = document.getElementById('menuIcon');
 
         mobileMenuBtn.addEventListener('click', function() {
             mobileMenu.classList.toggle('active');
-            menuIcon.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+            this.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Audience tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const audienceTabs = document.querySelectorAll('.audience-tab');
+            const audienceContents = document.querySelectorAll('.audience-content');
+            
+            audienceTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetAudience = tab.getAttribute('data-audience');
+                    
+                    // Remove active class from all tabs and contents
+                    audienceTabs.forEach(t => t.classList.remove('active'));
+                    audienceContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(targetAudience + '-content').classList.add('active');
+                });
+            });
         });
 
         // FAQ functionality
@@ -2230,17 +2252,17 @@
                     faqItems.forEach(otherItem => {
                         if (otherItem !== item) {
                             otherItem.classList.remove('active');
-                            otherItem.querySelector('.faq-icon').textContent = '+';
+                            otherItem.querySelector('.faq-icon').textContent = '↓';
                         }
                     });
                     
                     // Toggle current item
                     if (isActive) {
                         item.classList.remove('active');
-                        icon.textContent = '+';
+                        icon.textContent = '↓';
                     } else {
                         item.classList.add('active');
-                        icon.textContent = '−';
+                        icon.textContent = '↑';
                     }
                 });
             });
@@ -2253,8 +2275,10 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
                     mobileMenu.classList.remove('active');
-                    menuIcon.textContent = '☰';
+                    mobileMenuBtn.textContent = '☰';
                     
                     // Smooth scroll with offset for fixed navbar
                     const offsetTop = target.offsetTop - 80;
@@ -2265,43 +2289,6 @@
                 }
             });
         });
-
-        // Live Stats functionality
-        let projectCount = 12;
-        let onlineUsers = 847;
-        let responseTime = 23;
-        let earnings = 2100;
-
-        function updateStats() {
-            // Simulate realistic fluctuations
-            projectCount += Math.random() > 0.7 ? (Math.random() > 0.5 ? 1 : -1) : 0;
-            onlineUsers += Math.floor((Math.random() - 0.5) * 20);
-            responseTime += Math.floor((Math.random() - 0.5) * 3);
-            earnings += Math.floor(Math.random() * 50);
-
-            // Keep values in realistic ranges
-            projectCount = Math.max(8, Math.min(25, projectCount));
-            onlineUsers = Math.max(600, Math.min(1200, onlineUsers));
-            responseTime = Math.max(15, Math.min(45, responseTime));
-
-            // Update display
-            document.getElementById('activeProjects').textContent = projectCount;
-            document.getElementById('onlineUsers').textContent = onlineUsers.toLocaleString();
-            document.getElementById('avgResponseTime').textContent = responseTime;
-            document.getElementById('totalEarnings').textContent = `${(earnings / 1000).toFixed(1)}K`;
-
-            // Update timestamp
-            document.getElementById('lastUpdate').textContent = 'Just now';
-            setTimeout(() => {
-                document.getElementById('lastUpdate').textContent = '2 seconds ago';
-            }, 2000);
-        }
-
-        // Update stats every 8 seconds
-        setInterval(updateStats, 8000);
-
-        // Initial update after page loads
-        updateStats();
     </script>
 </body>
 </html>
