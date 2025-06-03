@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Based Users</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding-top: 80px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(15, 15, 15, 0.98);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:hover {
+            color: #FFFFFF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FFFFFF;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn-nav {
+            padding: 10px 20px;
+            background: #FFFFFF;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-nav:hover {
+            background: #F3F4F6;
+            transform: translateY(-1px);
+        }
+        
+        .btn-nav-secondary {
+            padding: 10px 20px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-nav-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-link:hover {
+            color: #FFFFFF;
+            padding-left: 8px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
+            padding: 100px 20px;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon {
+            background: #F9FAFB;
+            text-align: center;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .coming-soon-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .coming-soon-icon {
+            font-size: 80px;
+            margin-bottom: 32px;
+            display: block;
+        }
+
+        .coming-soon h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .coming-soon p {
+            font-size: 18px;
+            color: #6B7280;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 12px;
+            max-width: 450px;
+            margin: 0 auto 40px auto;
+            flex-wrap: wrap;
+        }
+
+        .subscribe-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            min-width: 280px;
+            transition: border-color 0.3s ease;
+        }
+
+        .subscribe-input:focus {
+            outline: none;
+            border-color: #000000;
+        }
+
+        .subscribe-button {
+            padding: 14px 28px;
+            background: #000000;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+        }
+
+        .subscribe-button:hover {
+            background: #374151;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .subscribe-note {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-top: 16px;
+        }
+
+        /* Blog Topics Preview */
+        .blog-preview {
+            background: #FFFFFF;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+
+        .topic-card {
+            background: #F9FAFB;
+            border-radius: 20px;
+            padding: 32px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .topic-card:hover {
+            background: #FFFFFF;
+            border-color: #000000;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .topic-icon {
+            width: 80px;
+            height: 80px;
+            background: #000000;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            font-size: 32px;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+        }
+
+        .topic-card:hover .topic-icon {
+            background: #374151;
+            transform: scale(1.1);
+        }
+
+        .topic-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+
+        .topic-description {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .topic-examples {
+            list-style: none;
+            text-align: left;
+        }
+
+        .topic-examples li {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .topic-examples li::before {
+            content: "•";
+            color: #000000;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Newsletter Benefits */
+        .newsletter-benefits {
+            background: #F9FAFB;
+        }
+
+        .benefits-list {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .benefit-icon {
+            width: 48px;
+            height: 48px;
+            background: #000000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .benefit-content h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        .benefit-content p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
+            padding: 100px 20px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .cta-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 32px;
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .cta-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 16px;
+            min-width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .cta-input:focus {
+            outline: none;
+            border-color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .cta-button {
+            padding: 14px 28px;
+            background: #FFFFFF;
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #F3F4F6;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #0F0F0F;
+            color: #FFFFFF;
+            padding: 60px 0 30px 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-brand {
+            max-width: 300px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+        
+        .footer-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .footer-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+        }
+        
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-legal a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-legal a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .nav-container {
+                height: 70px;
+            }
+            
+            .nav-menu,
+            .nav-cta {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .subscribe-form,
+            .cta-form {
+                flex-direction: column;
+            }
+
+            .subscribe-input,
+            .cta-input {
+                min-width: auto;
+            }
+
+            .topics-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .benefits-list {
+                padding: 0 20px;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">B</div>
+                <span>Based Users</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html#how-it-works" class="nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+            </ul>
+            
+            <div class="nav-cta">
+                <a href="register.html" class="btn-nav-secondary">Join as Researcher</a>
+                <a href="contact.html" class="btn-nav">Get Started</a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span id="menuIcon">☰</span>
+            </button>
+        </div>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html#how-it-works" class="mobile-nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="mobile-nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="mobile-nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="mobile-nav-link">FAQ</a></li>
+                <li><a href="register.html" class="mobile-nav-link">Join as Researcher</a></li>
+                <li><a href="contact.html" class="mobile-nav-link">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1 class="hero-title">Based Users Blog</h1>
+            <p class="hero-subtitle">
+                Insights, trends, and best practices for AI user research and product development.
+            </p>
+        </div>
+    </section>
+
+    <!-- Coming Soon Section -->
+    <section class="content-section coming-soon">
+        <div class="container">
+            <div class="coming-soon-content">
+                <span class="coming-soon-icon">📝</span>
+                <h2>Blog Coming Soon</h2>
+                <p>We're preparing valuable content about AI user research, product development insights, and industry trends. Be the first to read our articles when we launch!</p>
+                
+                <form class="subscribe-form" id="subscribeForm">
+                    <input type="email" class="subscribe-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="subscribe-button">Subscribe</button>
+                </form>
+                
+                <p class="subscribe-note">No spam, unsubscribe anytime. We'll only send you the good stuff.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Topics Preview -->
+    <section class="content-section blog-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What We'll Cover</h2>
+                <p class="section-subtitle">Topics and insights we're excited to share with the AI community</p>
+            </div>
+            
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-icon">🔍</div>
+                    <h3 class="topic-title">User Research Best Practices</h3>
+                    <p class="topic-description">Proven methodologies for getting meaningful feedback from AI users and turning insights into product improvements.</p>
+                    <ul class="topic-examples">
+                        <li>How to design effective research questions</li>
+                        <li>Recruiting the right participants</li>
+                        <li>Analyzing and acting on feedback</li>
+                        <li>Common research mistakes to avoid</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">🤖</div>
+                    <h3 class="topic-title">AI Product Development</h3>
+                    <p class="topic-description">Insights from successful AI companies on building products that users actually want and need.</p>
+                    <ul class="topic-examples">
+                        <li>User-centered AI design principles</li>
+                        <li>Testing AI features with real users</li>
+                        <li>Balancing innovation with usability</li>
+                        <li>AI ethics and user experience</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">📊</div>
+                    <h3 class="topic-title">Industry Trends & Data</h3>
+                    <p class="topic-description">Market insights, user behavior trends, and data-driven analysis of the evolving AI landscape.</p>
+                    <ul class="topic-examples">
+                        <li>AI adoption patterns across industries</li>
+                        <li>User preferences and behavior insights</li>
+                        <li>Market research and competitive analysis</li>
+                        <li>Future predictions and emerging trends</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">💡</div>
+                    <h3 class="topic-title">Success Stories & Case Studies</h3>
+                    <p class="topic-description">Real examples of how AI companies used user research to make better product decisions and achieve success.</p>
+                    <ul class="topic-examples">
+                        <li>Before/after product improvements</li>
+                        <li>Research-driven feature decisions</li>
+                        <li>User feedback impact on growth</li>
+                        <li>Lessons learned from failures</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">🚀</div>
+                    <h3 class="topic-title">Startup Resources</h3>
+                    <p class="topic-description">Practical guides and resources specifically for AI startups building their first products and user research processes.</p>
+                    <ul class="topic-examples">
+                        <li>Research on a startup budget</li>
+                        <li>Building user research into development</li>
+                        <li>Early-stage validation strategies</li>
+                        <li>Scaling research as you grow</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">👥</div>
+                    <h3 class="topic-title">Community Insights</h3>
+                    <p class="topic-description">Perspectives and experiences from our community of AI researchers, users, and industry professionals.</p>
+                    <ul class="topic-examples">
+                        <li>Researcher spotlight interviews</li>
+                        <li>User experience stories</li>
+                        <li>Industry expert opinions</li>
+                        <li>Community-driven content</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Benefits -->
+    <section class="content-section newsletter-benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Subscribe?</h2>
+                <p class="section-subtitle">Get exclusive insights delivered directly to your inbox</p>
+            </div>
+            
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">📬</div>
+                    <div class="benefit-content">
+                        <h4>First Access</h4>
+                        <p>Be the first to read new articles and insights before they're published elsewhere.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎯</div>
+                    <div class="benefit-content">
+                        <h4>Curated Content</h4>
+                        <p>Handpicked articles and resources specifically relevant to AI product development.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">💎</div>
+                    <div class="benefit-content">
+                        <h4>Exclusive Insights</h4>
+                        <p>Behind-the-scenes data and insights from our platform that you won't find anywhere else.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">📈</div>
+                    <div class="benefit-content">
+                        <h4>Industry Updates</h4>
+                        <p>Stay updated on the latest trends and developments in AI user research and product development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Don't Miss Our Launch</h2>
+            <p class="cta-subtitle">Join our newsletter and be the first to know when we publish.</p>
+            <form class="cta-form" id="ctaForm">
+                <input type="email" class="cta-input" placeholder="Your email address" required>
+                <button type="submit" class="cta-button">Subscribe Now</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <div class="footer-logo-icon">B</div>
+                        <span>Based Users</span>
+                    </a>
+                    <p class="footer-description">
+                        Get real user feedback for your AI products in 48 hours. Connect with 100k+ verified AI users and make data-driven product decisions.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#how-it-works">How it Works</a></li>
+                        <li><a href="index.html#why-choose-us">Why Us</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
+                        <li><a href="contact.html">Get Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>For Users</h4>
+                    <ul class="footer-links">
+                        <li><a href="register.html">Join as Researcher</a></li>
+                        <li><a href="earnings.html">How Much Can I Earn?</a></li>
+                        <li><a href="requirements.html">Requirements</a></li>
+                        <li><a href="#getting-started">Getting Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 Based Users. All rights reserved.
+                </div>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-service.html">Terms of Service</a>
+                    <a href="cookie-policy.html">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            menuIcon.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Subscribe forms
+        function handleSubscription(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert('Thanks for subscribing! We\'ll notify you at ' + email + ' when we launch the blog.');
+            e.target.reset();
+        }
+
+        document.getElementById('subscribeForm').addEventListener('submit', handleSubscription);
+        document.getElementById('ctaForm').addEventListener('submit', handleSubscription);
+    </script>
+</body>
+</html>
