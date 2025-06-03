@@ -3,34 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Form</title>
+    <title>Contact Us - Based Users</title>
     <style>
-        .contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #FFFFFF;
-            border-radius: 12px;
-            padding: 48px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding-top: 80px;
+            background: #F9FAFB;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(15, 15, 15, 0.98);
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:hover {
+            color: #FFFFFF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FFFFFF;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn-nav {
+            padding: 10px 20px;
+            background: #FFFFFF;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-nav:hover {
+            background: #F3F4F6;
+            transform: translateY(-1px);
+        }
+        
+        .btn-nav-secondary {
+            padding: 10px 20px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-nav-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-link:hover {
+            color: #FFFFFF;
+            padding-left: 8px;
+        }
+        
+        /* Contact Container */
+        .contact-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
         
         .contact-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
         
         .contact-title {
             font-size: 32px;
-            font-weight: 600;
+            font-weight: 700;
             color: #000000;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
         
         .contact-subtitle {
+            font-size: 18px;
+            color: #6B7280;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        /* Contact Info */
+        .contact-info {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .info-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 32px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            background: #F3F4F6;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .info-content h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+        
+        .info-content p {
             font-size: 16px;
-            font-weight: 400;
             color: #6B7280;
             line-height: 1.5;
+        }
+        
+        .info-content a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .info-content a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .form-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 32px;
         }
         
         .form-group {
@@ -39,63 +308,87 @@
         
         .form-label {
             display: block;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             color: #374151;
             margin-bottom: 8px;
         }
         
-        .form-input, .form-textarea, .form-select {
+        .form-input {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #D1D5DB;
-            border-radius: 6px;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
             font-size: 16px;
+            transition: all 0.3s ease;
             background: #FFFFFF;
-            transition: border-color 0.3s ease;
-            box-sizing: border-box;
         }
         
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
+        .form-input:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #FFFFFF;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .form-select:focus {
             outline: none;
             border-color: #000000;
             box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
         }
         
         .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .form-row {
-            display: flex;
-            gap: 16px;
-        }
-        
-        .form-row .form-group {
-            flex: 1;
-        }
-        
-        .submit-button {
             width: 100%;
-            padding: 16px 24px;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            min-height: 150px;
+            resize: vertical;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .form-textarea:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
             background: #000000;
             color: #FFFFFF;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            margin-top: 32px;
         }
         
-        .submit-button:hover {
+        .submit-btn:hover {
             background: #374151;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
         
-        .submit-button:disabled {
+        .submit-btn:disabled {
             background: #9CA3AF;
             cursor: not-allowed;
+            transform: none;
         }
         
         .success-message {
@@ -103,9 +396,10 @@
             padding: 16px;
             background: #10B981;
             color: #FFFFFF;
-            border-radius: 6px;
-            margin-top: 20px;
+            border-radius: 12px;
             text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
         }
         
         .error-message {
@@ -113,165 +407,410 @@
             padding: 16px;
             background: #EF4444;
             color: #FFFFFF;
-            border-radius: 6px;
-            margin-top: 20px;
+            border-radius: 12px;
             text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
         }
         
+        /* Footer */
+        .footer {
+            background: #0F0F0F;
+            color: #FFFFFF;
+            padding: 60px 0 30px 0;
+            margin-top: 100px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-brand {
+            max-width: 300px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+        
+        .footer-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .footer-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+        }
+        
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-legal a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-legal a:hover {
+            color: #FFFFFF;
+        }
+        
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .contact-container {
-                margin: 20px;
-                padding: 32px 24px;
+            body {
+                padding-top: 70px;
             }
             
-            .form-row {
-                flex-direction: column;
-                gap: 0;
+            .nav-container {
+                height: 70px;
+            }
+            
+            .nav-menu,
+            .nav-cta {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .contact-container {
+                padding: 0 15px;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .contact-form,
+            .contact-info {
+                padding: 32px 24px;
             }
             
             .contact-title {
                 font-size: 28px;
             }
+            
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="contact-container">
-        <div class="contact-header">
-            <h1 class="contact-title">Get Started with Your Research</h1>
-            <p class="contact-subtitle">Tell us about your AI product and research needs. We'll get back to you within 24 hours with a custom proposal.</p>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">B</div>
+                <span>Based Users</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html#how-it-works" class="nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+            </ul>
+            
+            <div class="nav-cta">
+                <a href="register.html" class="btn-nav-secondary">Join as Researcher</a>
+                <a href="contact.html" class="btn-nav">Get Started</a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span id="menuIcon">☰</span>
+            </button>
         </div>
         
-        <form id="contactForm" action="#" method="POST">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="firstName" class="form-label">First Name *</label>
-                    <input type="text" id="firstName" name="firstName" class="form-input" required>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html#how-it-works" class="mobile-nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="mobile-nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="mobile-nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="mobile-nav-link">FAQ</a></li>
+                <li><a href="register.html" class="mobile-nav-link">Join as Researcher</a></li>
+                <li><a href="contact.html" class="mobile-nav-link">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Content -->
+    <div class="contact-container">
+        <div class="contact-header">
+            <h1 class="contact-title">Get Started with AI User Research</h1>
+            <p class="contact-subtitle">Ready to get real user feedback for your AI product? Contact us to discuss your research needs and get a custom quote. We'll connect you with the perfect users in 48 hours.</p>
+        </div>
+
+        <div class="contact-content">
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <h2 class="info-title">Let's Talk</h2>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h4>Email Us</h4>
+                        <p><a href="mailto:hello@basedusers.com">hello@basedusers.com</a></p>
+                        <p>We typically respond within 2 hours</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="lastName" class="form-label">Last Name *</label>
-                    <input type="text" id="lastName" name="lastName" class="form-input" required>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h4>Response Time</h4>
+                        <p>24-48 hours for project quotes</p>
+                        <p>Same day for general inquiries</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h4>Schedule a Call</h4>
+                        <p>Book a 15-minute discovery call</p>
+                        <p><a href="https://calendly.com/basedusers" target="_blank">calendly.com/basedusers</a></p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h4>Quick Quote</h4>
+                        <p>Get instant pricing estimates</p>
+                        <p>Fill out the form for project details</p>
+                    </div>
                 </div>
             </div>
-            
-            <div class="form-row">
+
+            <!-- Contact Form -->
+            <form class="contact-form" id="contactForm">
+                <h2 class="form-title">Start Your Research Project</h2>
+                
                 <div class="form-group">
-                    <label for="email" class="form-label">Email Address *</label>
-                    <input type="email" id="email" name="email" class="form-input" required>
+                    <label class="form-label" for="companyName">Company Name *</label>
+                    <input type="text" class="form-input" id="companyName" name="companyName" required>
                 </div>
+
                 <div class="form-group">
-                    <label for="company" class="form-label">Company</label>
-                    <input type="text" id="company" name="company" class="form-input">
+                    <label class="form-label" for="contactName">Your Name *</label>
+                    <input type="text" class="form-input" id="contactName" name="contactName" required>
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="productType" class="form-label">Product Type *</label>
-                <select id="productType" name="productType" class="form-select" required>
-                    <option value="">Select your product type</option>
-                    <option value="ai-tool">AI Tool/Software</option>
-                    <option value="ai-hardware">AI Hardware</option>
-                    <option value="developer-api">Developer API</option>
-                    <option value="enterprise-solution">Enterprise Solution</option>
-                    <option value="consumer-app">Consumer Application</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="researchGoals" class="form-label">Research Goals *</label>
-                <textarea id="researchGoals" name="researchGoals" class="form-textarea" 
-                    placeholder="What do you want to learn from users? What specific feedback are you looking for?" required></textarea>
-            </div>
-            
-            <div class="form-row">
+
                 <div class="form-group">
-                    <label for="timeline" class="form-label">Timeline</label>
-                    <select id="timeline" name="timeline" class="form-select">
-                        <option value="">When do you need results?</option>
-                        <option value="asap">ASAP (within 48 hours)</option>
-                        <option value="week">Within a week</option>
-                        <option value="month">Within a month</option>
-                        <option value="flexible">Flexible timeline</option>
+                    <label class="form-label" for="email">Email Address *</label>
+                    <input type="email" class="form-input" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="productType">What type of AI product are you building? *</label>
+                    <select class="form-select" id="productType" name="productType" required>
+                        <option value="">Select your product type</option>
+                        <option value="ai-tool">AI Tool/Software</option>
+                        <option value="ai-hardware">AI Hardware</option>
+                        <option value="developer-api">Developer API/SDK</option>
+                        <option value="enterprise-solution">Enterprise AI Solution</option>
+                        <option value="consumer-app">Consumer AI Application</option>
+                        <option value="other">Other</option>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="budget" class="form-label">Budget Range</label>
-                    <select id="budget" name="budget" class="form-select">
+                    <label class="form-label" for="researchType">What type of research do you need? *</label>
+                    <select class="form-select" id="researchType" name="researchType" required>
+                        <option value="">Select research type</option>
+                        <option value="quick-feedback">Quick User Feedback (15 min)</option>
+                        <option value="deep-experience">Deep User Experience (30 min)</option>
+                        <option value="enterprise-decision">Enterprise Decision Research (45 min)</option>
+                        <option value="market-positioning">Market Positioning Study</option>
+                        <option value="custom">Custom Research</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="userCount">How many users do you need?</label>
+                    <select class="form-select" id="userCount" name="userCount">
+                        <option value="">Select user count</option>
+                        <option value="10-25">10-25 users</option>
+                        <option value="25-50">25-50 users</option>
+                        <option value="50-100">50-100 users</option>
+                        <option value="100+">100+ users</option>
+                        <option value="not-sure">Not sure yet</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="timeline">When do you need results? *</label>
+                    <select class="form-select" id="timeline" name="timeline" required>
+                        <option value="">Select timeline</option>
+                        <option value="asap">ASAP (48-72 hours)</option>
+                        <option value="1-week">Within 1 week</option>
+                        <option value="2-weeks">Within 2 weeks</option>
+                        <option value="1-month">Within 1 month</option>
+                        <option value="flexible">Flexible timing</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="budget">Estimated Budget Range</label>
+                    <select class="form-select" id="budget" name="budget">
                         <option value="">Select budget range</option>
-                        <option value="under-500">Under $500</option>
                         <option value="500-1000">$500 - $1,000</option>
                         <option value="1000-2500">$1,000 - $2,500</option>
-                        <option value="2500-plus">$2,500+</option>
+                        <option value="2500-5000">$2,500 - $5,000</option>
+                        <option value="5000+">$5,000+</option>
+                        <option value="discuss">Let's discuss</option>
                     </select>
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="additionalInfo" class="form-label">Additional Information</label>
-                <textarea id="additionalInfo" name="additionalInfo" class="form-textarea" 
-                    placeholder="Any specific requirements, target user types, or questions you have for us?"></textarea>
-            </div>
-            
-            <button type="submit" class="submit-button" id="submitBtn">
-                Send Research Request
-            </button>
-            
-            <div class="success-message" id="successMessage">
-                Thank you! We've received your research request and will get back to you within 24 hours.
-            </div>
-            
-            <div class="error-message" id="errorMessage">
-                Sorry, there was an error sending your message. Please try again or email us directly.
-            </div>
-        </form>
+
+                <div class="form-group">
+                    <label class="form-label" for="projectDetails">Tell us about your research goals *</label>
+                    <textarea class="form-textarea" id="projectDetails" name="projectDetails" placeholder="Describe what you want to learn from users, specific questions you have, or goals for this research..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="targetUsers">Describe your ideal research participants</label>
+                    <textarea class="form-textarea" id="targetUsers" name="targetUsers" placeholder="e.g., AI developers with 2+ years experience, enterprise decision makers, creative professionals using AI tools..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Send Research Request</button>
+                
+                <div class="success-message" id="successMessage">
+                    🎉 Request sent successfully! We'll review your project and send you a detailed quote within 24 hours.
+                </div>
+                
+                <div class="error-message" id="errorMessage">
+                    ❌ Something went wrong. Please try again or email us directly at hello@basedusers.com
+                </div>
+            </form>
+        </div>
     </div>
 
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
-            
-            // Hide previous messages
-            successMessage.style.display = 'none';
-            errorMessage.style.display = 'none';
-            
-            // Disable submit button
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-            
-            // Simulate form submission (replace with actual form handling)
-            setTimeout(() => {
-                // Show success message
-                successMessage.style.display = 'block';
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <div class="footer-logo-icon">B</div>
+                        <span>Based Users</span>
+                    </a>
+                    <p class="footer-description">
+                        Get real user feedback for your AI products in 48 hours. Connect with 100k+ verified AI users and make data-driven product decisions.
+                    </p>
+                </div>
                 
-                // Reset form
-                this.reset();
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#how-it-works">How it Works</a></li>
+                        <li><a href="index.html#why-choose-us">Why Us</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
+                        <li><a href="contact.html">Get Started</a></li>
+                    </ul>
+                </div>
                 
-                // Re-enable submit button
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Research Request';
-                
-                // Scroll to success message
-                successMessage.scrollIntoView({ behavior: 'smooth' });
-            }, 1500);
-        });
-        
-        // Form validation
-        const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-        
-        requiredFields.forEach(field => {
-            field.addEventListener('blur', function() {
-                if (!this.value.trim()) {
-                    this.style.borderColor = '#EF4444';
-                } else {
-                    this.style.borderColor = '#D1D5DB';
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                <div class="footer-column">
