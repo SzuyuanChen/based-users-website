@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 48px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .contact-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+        
+        .contact-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-size: 16px;
+            background: #FFFFFF;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 16px 24px;
+            background: #000000;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-button:hover {
+            background: #374151;
+        }
+        
+        .submit-button:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            display: none;
+            padding: 16px;
+            background: #10B981;
+            color: #FFFFFF;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .error-message {
+            display: none;
+            padding: 16px;
+            background: #EF4444;
+            color: #FFFFFF;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-container {
+                margin: 20px;
+                padding: 32px 24px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .contact-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <div class="contact-header">
+            <h1 class="contact-title">Get Started with Your Research</h1>
+            <p class="contact-subtitle">Tell us about your AI product and research needs. We'll get back to you within 24 hours with a custom proposal.</p>
+        </div>
+        
+        <form id="contactForm" action="#" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName" class="form-label">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="form-label">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" class="form-input" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address *</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="company" class="form-label">Company</label>
+                    <input type="text" id="company" name="company" class="form-input">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="productType" class="form-label">Product Type *</label>
+                <select id="productType" name="productType" class="form-select" required>
+                    <option value="">Select your product type</option>
+                    <option value="ai-tool">AI Tool/Software</option>
+                    <option value="ai-hardware">AI Hardware</option>
+                    <option value="developer-api">Developer API</option>
+                    <option value="enterprise-solution">Enterprise Solution</option>
+                    <option value="consumer-app">Consumer Application</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="researchGoals" class="form-label">Research Goals *</label>
+                <textarea id="researchGoals" name="researchGoals" class="form-textarea" 
+                    placeholder="What do you want to learn from users? What specific feedback are you looking for?" required></textarea>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="timeline" class="form-label">Timeline</label>
+                    <select id="timeline" name="timeline" class="form-select">
+                        <option value="">When do you need results?</option>
+                        <option value="asap">ASAP (within 48 hours)</option>
+                        <option value="week">Within a week</option>
+                        <option value="month">Within a month</option>
+                        <option value="flexible">Flexible timeline</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget" class="form-label">Budget Range</label>
+                    <select id="budget" name="budget" class="form-select">
+                        <option value="">Select budget range</option>
+                        <option value="under-500">Under $500</option>
+                        <option value="500-1000">$500 - $1,000</option>
+                        <option value="1000-2500">$1,000 - $2,500</option>
+                        <option value="2500-plus">$2,500+</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="additionalInfo" class="form-label">Additional Information</label>
+                <textarea id="additionalInfo" name="additionalInfo" class="form-textarea" 
+                    placeholder="Any specific requirements, target user types, or questions you have for us?"></textarea>
+            </div>
+            
+            <button type="submit" class="submit-button" id="submitBtn">
+                Send Research Request
+            </button>
+            
+            <div class="success-message" id="successMessage">
+                Thank you! We've received your research request and will get back to you within 24 hours.
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                Sorry, there was an error sending your message. Please try again or email us directly.
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            // Simulate form submission (replace with actual form handling)
+            setTimeout(() => {
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Reset form
+                this.reset();
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Research Request';
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        });
+        
+        // Form validation
+        const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        
+        requiredFields.forEach(field => {
+            field.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    this.style.borderColor = '#EF4444';
+                } else {
+                    this.style.borderColor = '#D1D5DB';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
