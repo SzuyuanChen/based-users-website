@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requirements - Based Users</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding-top: 80px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(15, 15, 15, 0.98);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:hover {
+            color: #FFFFFF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FFFFFF;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn-nav {
+            padding: 10px 20px;
+            background: #FFFFFF;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-nav:hover {
+            background: #F3F4F6;
+            transform: translateY(-1px);
+        }
+        
+        .btn-nav-secondary {
+            padding: 10px 20px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-nav-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-link:hover {
+            color: #FFFFFF;
+            padding-left: 8px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
+            padding: 100px 20px;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Basic Requirements */
+        .basic-requirements {
+            background: #F9FAFB;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .requirement-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 40px 32px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .requirement-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #000000;
+        }
+
+        .requirement-icon {
+            width: 80px;
+            height: 80px;
+            background: #F3F4F6;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            font-size: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .requirement-card:hover .requirement-icon {
+            background: #000000;
+            color: #FFFFFF;
+            transform: scale(1.1);
+        }
+
+        .requirement-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+
+        .requirement-description {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Experience Levels */
+        .experience-levels {
+            background: #FFFFFF;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .level-card {
+            background: #F9FAFB;
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid #E5E7EB;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            border-color: #000000;
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10B981, #059669);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .level-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .level-badge {
+            display: inline-block;
+            background: #10B981;
+            color: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .level-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+
+        .level-description {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .level-requirements {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .level-requirements li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #374151;
+        }
+
+        .level-requirements .check-icon {
+            width: 20px;
+            height: 20px;
+            background: #10B981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .level-examples {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #10B981;
+        }
+
+        .level-examples h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #059669;
+            margin-bottom: 8px;
+        }
+
+        .level-examples p {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        /* Technical Requirements */
+        .technical-requirements {
+            background: #F9FAFB;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .tech-content h3 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 24px;
+        }
+
+        .tech-list {
+            list-style: none;
+        }
+
+        .tech-list li {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #374151;
+        }
+
+        .tech-icon {
+            width: 48px;
+            height: 48px;
+            background: #000000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .tech-visual {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .tech-visual img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        /* Application Process */
+        .application-process {
+            background: #FFFFFF;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .process-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            border: 3px solid #E5E7EB;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 24px;
+        }
+
+        .step-icon:hover {
+            background: #000000;
+            border-color: #000000;
+            color: #FFFFFF;
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: #000000;
+            color: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .step-description {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        .connection-line {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 15%, #E5E7EB 15%, #E5E7EB 85%, transparent 85%);
+            z-index: 1;
+        }
+
+        /* Tips Section */
+        .tips-section {
+            background: #F0FDF4;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 60px;
+        }
+
+        .tips-section h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #065F46;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .tip-item {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 24px;
+            border-left: 4px solid #10B981;
+        }
+
+        .tip-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #065F46;
+            margin-bottom: 8px;
+        }
+
+        .tip-item p {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
+            padding: 100px 20px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .cta-title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: #FFFFFF;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button:hover {
+            background: #F3F4F6;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: #0F0F0F;
+            color: #FFFFFF;
+            padding: 60px 0 30px 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-brand {
+            max-width: 300px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+        
+        .footer-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .footer-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+        }
+        
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-legal a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-legal a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .nav-container {
+                height: 70px;
+            }
+            
+            .nav-menu,
+            .nav-cta {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .requirements-grid,
+            .levels-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .connection-line {
+                display: none;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">B</div>
+                <span>Based Users</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html#how-it-works" class="nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+            </ul>
+            
+            <div class="nav-cta">
+                <a href="register.html" class="btn-nav-secondary">Join as Researcher</a>
+                <a href="contact.html" class="btn-nav">Get Started</a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span id="menuIcon">☰</span>
+            </button>
+        </div>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html#how-it-works" class="mobile-nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="mobile-nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="mobile-nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="mobile-nav-link">FAQ</a></li>
+                <li><a href="register.html" class="mobile-nav-link">Join as Researcher</a></li>
+                <li><a href="contact.html" class="mobile-nav-link">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1 class="hero-title">Researcher Requirements</h1>
+            <p class="hero-subtitle">
+                Join our community of AI enthusiasts and professionals. Here's what you need to become a research participant.
+            </p>
+        </div>
+    </section>
+
+    <!-- Basic Requirements -->
+    <section class="content-section basic-requirements">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Basic Requirements</h2>
+                <p class="section-subtitle">Essential criteria that all research participants must meet to join our platform</p>
+            </div>
+            
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <div class="requirement-icon">🎂</div>
+                    <h3 class="requirement-title">Age & Legal Status</h3>
+                    <p class="requirement-description">Must be 18+ years old and legally able to enter into contracts in your jurisdiction.</p>
+                </div>
+                
+                <div class="requirement-card">
+                    <div class="requirement-icon">🌐</div>
+                    <h3 class="requirement-title">Language Proficiency</h3>
+                    <p class="requirement-description">Fluent English communication skills (written and spoken) for clear feedback and instructions.</p>
+                </div>
+                
+                <div class="requirement-card">
+                    <div class="requirement-icon">💻</div>
+                    <h3 class="requirement-title">Device Access</h3>
+                    <p class="requirement-description">Reliable computer/laptop with stable internet connection for testing AI products and services.</p>
+                </div>
+                
+                <div class="requirement-card">
+                    <div class="requirement-icon">🤖</div>
+                    <h3 class="requirement-title">AI Interest</h3>
+                    <p class="requirement-description">Genuine interest in AI technology and willingness to learn about new AI tools and applications.</p>
+                </div>
+                
+                <div class="requirement-card">
+                    <div class="requirement-icon">⏰</div>
+                    <h3 class="requirement-title">Time Availability</h3>
+                    <p class="requirement-description">Ability to dedicate 15-45 minutes per research session with flexible scheduling.</p>
+                </div>
+                
+                <div class="requirement-card">
+                    <div class="requirement-icon">🎯</div>
+                    <h3 class="requirement-title">Attention to Detail</h3>
+                    <p class="requirement-description">Strong observation skills and ability to provide thoughtful, detailed feedback.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Levels -->
+    <section class="content-section experience-levels">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Experience Levels</h2>
+                <p class="section-subtitle">We welcome researchers from all backgrounds. Your experience level determines the types of research opportunities available to you.</p>
+            </div>
+            
+            <div class="levels-grid">
+                <div class="level-card">
+                    <div class="level-badge">Beginner</div>
+                    <h3 class="level-title">AI Curious</h3>
+                    <p class="level-description">New to AI but eager to learn and explore. Perfect for quick feedback sessions and basic product testing.</p>
+                    
+                    <ul class="level-requirements">
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Basic computer literacy
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Interest in technology
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Willingness to learn
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Clear communication skills
+                        </li>
+                    </ul>
+                    
+                    <div class="level-examples">
+                        <h4>Example Opportunities:</h4>
+                        <p>ChatGPT alternatives, AI writing tools, basic automation apps, consumer AI products</p>
+                    </div>
+                </div>
+                
+                <div class="level-card">
+                    <div class="level-badge">Intermediate</div>
+                    <h3 class="level-title">AI User</h3>
+                    <p class="level-description">Regular AI tool user with practical experience. Ideal for comprehensive product testing and UX feedback.</p>
+                    
+                    <ul class="level-requirements">
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            6+ months using AI tools regularly
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Experience with 3+ AI platforms
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Understanding of AI limitations
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Can provide detailed UX feedback
+                        </li>
+                    </ul>
+                    
+                    <div class="level-examples">
+                        <h4>Example Opportunities:</h4>
+                        <p>Business AI tools, developer APIs, workflow automation, AI productivity suites</p>
+                    </div>
+                </div>
+                
+                <div class="level-card">
+                    <div class="level-badge">Expert</div>
+                    <h3 class="level-title">AI Professional</h3>
+                    <p class="level-description">Professional working with AI in business context. Perfect for strategic consultations and enterprise product evaluation.</p>
+                    
+                    <ul class="level-requirements">
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Professional AI experience (1+ years)
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Business/enterprise AI implementation
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            ROI and business impact understanding
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Strategic AI decision-making experience
+                        </li>
+                    </ul>
+                    
+                    <div class="level-examples">
+                        <h4>Example Opportunities:</h4>
+                        <p>Enterprise AI platforms, B2B solutions, AI strategy tools, technical API testing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Requirements -->
+    <section class="content-section technical-requirements">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technical Requirements</h2>
+                <p class="section-subtitle">Ensure you have the necessary technical setup to participate effectively in research sessions</p>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-content">
+                    <h3>Required Equipment & Setup</h3>
+                    <ul class="tech-list">
+                        <li>
+                            <div class="tech-icon">💻</div>
+                            <div>
+                                <strong>Computer:</strong> Desktop or laptop (Windows, Mac, or Linux) with modern web browser
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tech-icon">🌐</div>
+                            <div>
+                                <strong>Internet:</strong> Stable broadband connection (minimum 10 Mbps for video calls)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tech-icon">🎤</div>
+                            <div>
+                                <strong>Audio:</strong> Working microphone and speakers/headphones for interviews
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tech-icon">📹</div>
+                            <div>
+                                <strong>Video:</strong> Webcam for video interview sessions (expert level)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tech-icon">📧</div>
+                            <div>
+                                <strong>Communication:</strong> Active email address and PayPal account for payments
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tech-visual">
+                    <div style="background: #F3F4F6; padding: 60px; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🖥️</div>
+                        <h4 style="margin-bottom: 8px; color: #374151;">Modern Setup</h4>
+                        <p style="color: #6B7280; font-size: 14px;">Any device from the last 5 years should work perfectly</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Process -->
+    <section class="content-section application-process">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Application Process</h2>
+                <p class="section-subtitle">Simple 4-step process to become a verified research participant</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="connection-line"></div>
+                
+                <div class="process-step">
+                    <div class="step-icon">
+                        <div class="step-number">1</div>
+                        📝
+                    </div>
+                    <h3 class="step-title">Application</h3>
+                    <p class="step-description">Complete our detailed application form with your AI experience, interests, and availability.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-icon">
+                        <div class="step-number">2</div>
+                        ✅
+                    </div>
+                    <h3 class="step-title">Screening</h3>
+                    <p class="step-description">We review your application and may conduct a brief screening interview to assess fit.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-icon">
+                        <div class="step-number">3</div>
+                        🎯
+                    </div>
+                    <h3 class="step-title">Test Session</h3>
+                    <p class="step-description">Complete a paid trial research session to demonstrate your feedback quality.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-icon">
+                        <div class="step-number">4</div>
+                        🚀
+                    </div>
+                    <h3 class="step-title">Activation</h3>
+                    <p class="step-description">Get approved and start receiving research invitations matching your profile.</p>
+                </div>
+            </div>
+            
+            <div class="tips-section">
+                <h3>💡 Application Tips</h3>
+                <div class="tips-grid">
+                    <div class="tip-item">
+                        <h4>Be Specific</h4>
+                        <p>Detail your actual AI tool usage, not just general interest. Mention specific platforms and use cases.</p>
+                    </div>
+                    <div class="tip-item">
+                        <h4>Show Expertise</h4>
+                        <p>Include relevant work experience, projects, or certifications related to AI or technology.</p>
+                    </div>
+                    <div class="tip-item">
+                        <h4>Quality Matters</h4>
+                        <p>Take time to write thoughtful responses. Poor applications are automatically rejected.</p>
+                    </div>
+                    <div class="tip-item">
+                        <h4>Be Honest</h4>
+                        <p>Accurately represent your experience level. We match based on real capabilities, not aspirations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Apply?</h2>
+            <p class="cta-subtitle">Join thousands of AI enthusiasts who are earning money while shaping the future of AI products.</p>
+            <a href="register.html" class="cta-button">
+                Start Application
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="7" y1="17" x2="17" y2="7"/>
+                    <polyline points="7,7 17,7 17,17"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <div class="footer-logo-icon">B</div>
+                        <span>Based Users</span>
+                    </a>
+                    <p class="footer-description">
+                        Get real user feedback for your AI products in 48 hours. Connect with 100k+ verified AI users and make data-driven product decisions.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#how-it-works">How it Works</a></li>
+                        <li><a href="index.html#why-choose-us">Why Us</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
+                        <li><a href="contact.html">Get Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>For Users</h4>
+                    <ul class="footer-links">
+                        <li><a href="register.html">Join as Researcher</a></li>
+                        <li><a href="earnings.html">How Much Can I Earn?</a></li>
+                        <li><a href="requirements.html">Requirements</a></li>
+                        <li><a href="#getting-started">Getting Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 Based Users. All rights reserved.
+                </div>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-service.html">Terms of Service</a>
+                    <a href="cookie-policy.html">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            menuIcon.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+        });
+    </script>
+</body>
+</html>
