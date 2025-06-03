@@ -5,346 +5,669 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Based Users</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
             padding-top: 80px;
-        }
-        
-        .legal-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-        
-        .legal-header {
-            text-align: center;
-            margin-bottom: 60px;
-            padding-bottom: 40px;
-            border-bottom: 2px solid #E5E7EB;
-        }
-        
-        .legal-title {
-            font-size: 36px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 16px;
-        }
-        
-        .legal-updated {
-            font-size: 16px;
-            color: #6B7280;
-        }
-        
-        .legal-nav {
             background: #F9FAFB;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 40px;
         }
         
-        .legal-nav h3 {
-            font-size: 18px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 16px;
-        }
-        
-        .legal-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 8px;
-        }
-        
-        .legal-nav a {
-            color: #374151;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
             transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(15, 15, 15, 0.98);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:hover {
+            color: #FFFFFF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FFFFFF;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn-nav {
+            padding: 10px 20px;
+            background: #FFFFFF;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-nav:hover {
+            background: #F3F4F6;
+            transform: translateY(-1px);
+        }
+        
+        .btn-nav-secondary {
+            padding: 10px 20px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-nav-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+        
+        .mobile-menu.active {
             display: block;
         }
         
-        .legal-nav a:hover {
-            background: #FFFFFF;
+        .mobile-nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-link:hover {
+            color: #FFFFFF;
+            padding-left: 8px;
+        }
+        
+        /* Content Container */
+        .content-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .content-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .content-title {
+            font-size: 32px;
+            font-weight: 700;
             color: #000000;
+            margin-bottom: 16px;
         }
         
-        .legal-section {
-            margin-bottom: 48px;
+        .content-subtitle {
+            font-size: 18px;
+            color: #6B7280;
+            line-height: 1.6;
         }
         
-        .section-title {
+        .content-body {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .content-body h2 {
             font-size: 24px;
             font-weight: 600;
             color: #000000;
-            margin-bottom: 20px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #E5E7EB;
-        }
-        
-        .section-content {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #374151;
-        }
-        
-        .section-content p {
             margin-bottom: 16px;
+            margin-top: 32px;
         }
         
-        .section-content ul {
-            margin: 16px 0;
-            padding-left: 24px;
+        .content-body h2:first-child {
+            margin-top: 0;
         }
         
-        .section-content li {
-            margin-bottom: 8px;
-        }
-        
-        .section-content h3 {
-            font-size: 18px;
-            font-weight: 600;
-            color: #000000;
-            margin: 24px 0 12px 0;
-        }
-        
-        .contact-info {
-            background: #F9FAFB;
-            border-radius: 12px;
-            padding: 32px;
-            margin-top: 60px;
-            text-align: center;
-        }
-        
-        .contact-title {
+        .content-body h3 {
             font-size: 20px;
             font-weight: 600;
             color: #000000;
+            margin-bottom: 12px;
+            margin-top: 24px;
+        }
+        
+        .content-body p {
+            font-size: 16px;
+            color: #374151;
+            line-height: 1.6;
             margin-bottom: 16px;
         }
         
-        .contact-text {
+        .content-body ul, .content-body ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        
+        .content-body li {
             font-size: 16px;
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .content-body a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .content-body a:hover {
+            text-decoration: underline;
+        }
+        
+        .last-updated {
+            background: #F3F4F6;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+            font-size: 14px;
             color: #6B7280;
+            text-align: center;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0F0F0F;
+            color: #FFFFFF;
+            padding: 60px 0 30px 0;
+            margin-top: 100px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-brand {
+            max-width: 300px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+        
+        .footer-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .footer-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 24px;
         }
         
-        .contact-email {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #000000;
-            color: #FFFFFF;
-            text-decoration: none;
-            border-radius: 8px;
+        .footer-column h4 {
+            font-size: 16px;
             font-weight: 600;
-            transition: background 0.3s ease;
+            margin-bottom: 20px;
+            color: #FFFFFF;
         }
         
-        .contact-email:hover {
-            background: #374151;
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
         
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-legal a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-legal a:hover {
+            color: #FFFFFF;
+        }
+        
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .legal-title {
+            body {
+                padding-top: 70px;
+            }
+            
+            .nav-container {
+                height: 70px;
+            }
+            
+            .nav-menu,
+            .nav-cta {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .content-container {
+                padding: 0 15px;
+            }
+            
+            .content-body {
+                padding: 32px 24px;
+            }
+            
+            .content-title {
                 font-size: 28px;
             }
             
-            .legal-nav ul {
+            .footer-main {
                 grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
             }
             
-            .section-title {
-                font-size: 20px;
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="legal-container">
-        <div class="legal-header">
-            <h1 class="legal-title">Privacy Policy</h1>
-            <p class="legal-updated">Last updated: December 2024</p>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">B</div>
+                <span>Based Users</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html#how-it-works" class="nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+            </ul>
+            
+            <div class="nav-cta">
+                <a href="register.html" class="btn-nav-secondary">Join as Researcher</a>
+                <a href="contact.html" class="btn-nav">Get Started</a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span id="menuIcon">☰</span>
+            </button>
         </div>
         
-        <div class="legal-nav">
-            <h3>Quick Navigation</h3>
-            <ul>
-                <li><a href="#information-collection">Information We Collect</a></li>
-                <li><a href="#information-use">How We Use Information</a></li>
-                <li><a href="#information-sharing">Information Sharing</a></li>
-                <li><a href="#data-collection">Research Data</a></li>
-                <li><a href="#user-rights">Your Rights</a></li>
-                <li><a href="#contact-us">Contact Us</a></li>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html#how-it-works" class="mobile-nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="mobile-nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="mobile-nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="mobile-nav-link">FAQ</a></li>
+                <li><a href="register.html" class="mobile-nav-link">Join as Researcher</a></li>
+                <li><a href="contact.html" class="mobile-nav-link">Get Started</a></li>
             </ul>
         </div>
+    </nav>
 
-        <!-- Privacy Policy Content -->
-        <div class="legal-section" id="information-collection">
-            <h2 class="section-title">Information We Collect</h2>
-            <div class="section-content">
-                <p>At Based Users, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you use our user research platform.</p>
-                
-                <h3>Personal Information</h3>
-                <ul>
-                    <li><strong>Account Information:</strong> Name, email address, professional background, and AI tool experience when you register as a user or client</li>
-                    <li><strong>Contact Details:</strong> Phone number, company information, and communication preferences</li>
-                    <li><strong>Profile Data:</strong> Skills, experience level, industry background, and areas of interest</li>
-                    <li><strong>Verification Information:</strong> LinkedIn profiles, portfolio links, and professional credentials</li>
-                </ul>
-                
-                <h3>Research and Usage Data</h3>
-                <ul>
-                    <li><strong>Research Responses:</strong> Feedback, answers, opinions, and insights provided during research sessions</li>
-                    <li><strong>Session Data:</strong> Participation history, session duration, and engagement metrics</li>
-                    <li><strong>Platform Usage:</strong> How you navigate and interact with our website and services</li>
-                    <li><strong>Device Information:</strong> Browser type, IP address, and device specifications for security and optimization</li>
-                </ul>
-                
-                <h3>Payment Information</h3>
-                <ul>
-                    <li><strong>Billing Details:</strong> Payment information processed securely through Stripe and PayPal</li>
-                    <li><strong>Transaction History:</strong> Records of payments made and received through our platform</li>
-                    <li><strong>Tax Information:</strong> Details required for tax reporting and compliance</li>
-                </ul>
-            </div>
+    <!-- Content -->
+    <div class="content-container">
+        <div class="content-header">
+            <h1 class="content-title">Privacy Policy</h1>
+            <p class="content-subtitle">We're committed to protecting your privacy and being transparent about how we collect, use, and share your information.</p>
         </div>
 
-        <div class="legal-section" id="information-use">
-            <h2 class="section-title">How We Use Your Information</h2>
-            <div class="section-content">
-                <h3>Platform Operations</h3>
-                <ul>
-                    <li>Create and manage your account</li>
-                    <li>Match users with relevant research opportunities</li>
-                    <li>Facilitate communication between clients and research participants</li>
-                    <li>Process payments to research participants and from clients</li>
-                    <li>Provide customer support and respond to inquiries</li>
-                </ul>
-                
-                <h3>Research and Analytics</h3>
-                <ul>
-                    <li>Compile anonymized research insights for clients</li>
-                    <li>Analyze platform usage to improve our services</li>
-                    <li>Generate aggregate statistics and industry reports</li>
-                    <li>Ensure the quality and authenticity of research participants</li>
-                </ul>
-                
-                <h3>Communication</h3>
-                <ul>
-                    <li>Send notifications about research opportunities</li>
-                    <li>Provide updates about platform features and improvements</li>
-                    <li>Share relevant industry insights and educational content</li>
-                    <li>Communicate important policy changes or security updates</li>
-                </ul>
+        <div class="content-body">
+            <div class="last-updated">
+                <strong>Last updated:</strong> December 1, 2024
             </div>
-        </div>
 
-        <div class="legal-section" id="information-sharing">
-            <h2 class="section-title">Information Sharing</h2>
-            <div class="section-content">
-                <p>We never sell your personal information. We only share data in the following circumstances:</p>
-                
-                <h3>With Clients (Anonymized)</h3>
-                <ul>
-                    <li>Research insights and feedback in anonymized, aggregated form</li>
-                    <li>General participant demographics without identifying information</li>
-                    <li>Quality metrics and engagement statistics</li>
-                </ul>
-                
-                <h3>With Service Providers</h3>
-                <ul>
-                    <li>Payment processors (Stripe, PayPal) for financial transactions</li>
-                    <li>Email service providers for communication</li>
-                    <li>Cloud hosting providers for data storage and platform operation</li>
-                    <li>Analytics tools for platform improvement (with anonymized data)</li>
-                </ul>
-                
-                <h3>Legal Requirements</h3>
-                <ul>
-                    <li>When required by law, court order, or government request</li>
-                    <li>To protect our legal rights, prevent fraud, or ensure platform security</li>
-                    <li>In connection with a business transfer or acquisition (with user notification)</li>
-                </ul>
-            </div>
-        </div>
+            <h2>1. Information We Collect</h2>
+            <p>We collect information you provide directly to us, such as when you create an account, participate in research studies, or contact us for support.</p>
 
-        <div class="legal-section" id="data-collection">
-            <h2 class="section-title">Research Data Handling</h2>
-            <div class="section-content">
-                <h3>Data Collection During Research</h3>
-                <p>When you participate in research sessions, we collect:</p>
-                <ul>
-                    <li>Your responses to research questions and prompts</li>
-                    <li>Feedback about products, features, and user experiences</li>
-                    <li>Screen recordings or session recordings (with explicit consent)</li>
-                    <li>Interaction data and usage patterns during testing</li>
-                </ul>
-                
-                <h3>Data Processing and Anonymization</h3>
-                <ul>
-                    <li>All research data is anonymized before sharing with clients</li>
-                    <li>Personal identifiers are removed from research reports</li>
-                    <li>Aggregated insights are created to protect individual privacy</li>
-                    <li>Raw research data is securely stored and access is strictly limited</li>
-                </ul>
-                
-                <h3>Data Retention</h3>
-                <ul>
-                    <li>Research data is retained for the duration needed to complete projects</li>
-                    <li>Anonymized insights may be retained for platform improvement</li>
-                    <li>Personal research data is deleted upon account closure or request</li>
-                    <li>Session recordings are deleted after research reports are completed</li>
-                </ul>
-            </div>
-        </div>
+            <h3>Personal Information</h3>
+            <ul>
+                <li>Name and contact information (email address, phone number)</li>
+                <li>Professional information (LinkedIn profile, industry, job title)</li>
+                <li>Demographic information (age range, location, technical background)</li>
+                <li>Payment information (PayPal email for researcher payments)</li>
+                <li>Research participation data and feedback</li>
+            </ul>
 
-        <div class="legal-section" id="user-rights">
-            <h2 class="section-title">Your Privacy Rights</h2>
-            <div class="section-content">
-                <h3>Access and Control</h3>
-                <p>You have the right to:</p>
-                <ul>
-                    <li>Access and download your personal data</li>
-                    <li>Correct inaccurate or incomplete information</li>
-                    <li>Delete your account and associated data</li>
-                    <li>Opt out of research opportunities at any time</li>
-                    <li>Withdraw consent for data processing</li>
-                    <li>Request data portability to another service</li>
-                </ul>
-                
-                <h3>Communication Preferences</h3>
-                <ul>
-                    <li>Unsubscribe from research opportunity emails</li>
-                    <li>Adjust notification preferences in your account settings</li>
-                    <li>Choose which types of research you're interested in</li>
-                    <li>Control the frequency of communications</li>
-                </ul>
-                
-                <h3>Data Security</h3>
-                <ul>
-                    <li>We use industry-standard encryption to protect your data</li>
-                    <li>Regular security audits and vulnerability assessments</li>
-                    <li>Secure data transmission and storage practices</li>
-                    <li>Limited access controls and employee training on data privacy</li>
-                </ul>
-            </div>
-        </div>
+            <h3>Automatically Collected Information</h3>
+            <ul>
+                <li>Device and browser information</li>
+                <li>IP address and location data</li>
+                <li>Usage patterns and interaction data</li>
+                <li>Cookies and similar tracking technologies</li>
+            </ul>
 
-        <!-- Contact Section -->
-        <div class="contact-info" id="contact-us">
-            <h3 class="contact-title">Privacy Questions?</h3>
-            <p class="contact-text">
-                If you have any questions about this Privacy Policy or want to exercise your privacy rights, please contact our privacy team.
-            </p>
-            <a href="mailto:privacy@basedusers.com" class="contact-email">Contact Privacy Team</a>
+            <h2>2. How We Use Your Information</h2>
+            <p>We use the information we collect to:</p>
+            <ul>
+                <li>Provide and improve our research platform services</li>
+                <li>Match researchers with appropriate research opportunities</li>
+                <li>Process payments to research participants</li>
+                <li>Communicate with you about research opportunities and account updates</li>
+                <li>Ensure platform security and prevent fraud</li>
+                <li>Comply with legal obligations and resolve disputes</li>
+                <li>Analyze usage patterns to improve our services</li>
+            </ul>
+
+            <h2>3. Information Sharing and Disclosure</h2>
+            <p>We may share your information in the following circumstances:</p>
+
+            <h3>With Research Clients</h3>
+            <p>We share anonymized research data and insights with clients. Personal identifying information is only shared with explicit consent for specific research projects.</p>
+
+            <h3>Service Providers</h3>
+            <p>We work with third-party service providers who help us operate our platform, including:</p>
+            <ul>
+                <li>Payment processors (PayPal, Stripe)</li>
+                <li>Data storage and hosting services</li>
+                <li>Email communication services</li>
+                <li>Analytics and performance monitoring tools</li>
+            </ul>
+
+            <h3>Legal Requirements</h3>
+            <p>We may disclose your information if required by law, legal process, or government request, or to protect the rights, property, or safety of Based Users, our users, or others.</p>
+
+            <h2>4. Data Security</h2>
+            <p>We implement appropriate technical and organizational measures to protect your personal information, including:</p>
+            <ul>
+                <li>Encryption of sensitive data in transit and at rest</li>
+                <li>Regular security assessments and updates</li>
+                <li>Access controls and employee training</li>
+                <li>Secure data centers and infrastructure</li>
+            </ul>
+
+            <h2>5. Your Rights and Choices</h2>
+            <p>Depending on your location, you may have certain rights regarding your personal information:</p>
+            <ul>
+                <li><strong>Access:</strong> Request a copy of the personal information we hold about you</li>
+                <li><strong>Correction:</strong> Update or correct inaccurate personal information</li>
+                <li><strong>Deletion:</strong> Request deletion of your personal information</li>
+                <li><strong>Portability:</strong> Receive your personal information in a portable format</li>
+                <li><strong>Opt-out:</strong> Unsubscribe from marketing communications</li>
+            </ul>
+
+            <h2>6. Cookies and Tracking</h2>
+            <p>We use cookies and similar technologies to enhance your experience, analyze usage, and provide personalized content. You can control cookie preferences through your browser settings.</p>
+
+            <h2>7. International Data Transfers</h2>
+            <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for international transfers.</p>
+
+            <h2>8. Data Retention</h2>
+            <p>We retain your personal information for as long as necessary to provide our services, comply with legal obligations, resolve disputes, and enforce our agreements.</p>
+
+            <h2>9. Children's Privacy</h2>
+            <p>Our services are not intended for individuals under 18 years of age. We do not knowingly collect personal information from children under 18.</p>
+
+            <h2>10. Changes to This Policy</h2>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new policy on our website and updating the "Last updated" date.</p>
+
+            <h2>11. Contact Us</h2>
+            <p>If you have questions about this Privacy Policy or our privacy practices, please contact us:</p>
+            <ul>
+                <li>Email: <a href="mailto:privacy@basedusers.com">privacy@basedusers.com</a></li>
+                <li>Address: Based Users, 123 Research Ave, San Francisco, CA 94105</li>
+            </ul>
+
+            <p>For data protection inquiries in the EU, you may also contact our Data Protection Officer at <a href="mailto:dpo@basedusers.com">dpo@basedusers.com</a>.</p>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <div class="footer-logo-icon">B</div>
+                        <span>Based Users</span>
+                    </a>
+                    <p class="footer-description">
+                        Get real user feedback for your AI products in 48 hours. Connect with 100k+ verified AI users and make data-driven product decisions.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#how-it-works">How it Works</a></li>
+                        <li><a href="index.html#why-choose-us">Why Us</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
+                        <li><a href="contact.html">Get Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>For Users</h4>
+                    <ul class="footer-links">
+                        <li><a href="register.html">Join as Researcher</a></li>
+                        <li><a href="#earnings">How Much Can I Earn?</a></li>
+                        <li><a href="#requirements">Requirements</a></li>
+                        <li><a href="#getting-started">Getting Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 Based Users. All rights reserved.
+                </div>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-service.html">Terms of Service</a>
+                    <a href="cookie-policy.html">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            menuIcon.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+        });
+    </script>
 </body>
 </html>
