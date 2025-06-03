@@ -5,354 +5,821 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie Policy - Based Users</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
             padding-top: 80px;
-        }
-        
-        .legal-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-        
-        .legal-header {
-            text-align: center;
-            margin-bottom: 60px;
-            padding-bottom: 40px;
-            border-bottom: 2px solid #E5E7EB;
-        }
-        
-        .legal-title {
-            font-size: 36px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 16px;
-        }
-        
-        .legal-updated {
-            font-size: 16px;
-            color: #6B7280;
-        }
-        
-        .legal-nav {
             background: #F9FAFB;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 40px;
         }
         
-        .legal-nav h3 {
-            font-size: 18px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 16px;
-        }
-        
-        .legal-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 8px;
-        }
-        
-        .legal-nav a {
-            color: #374151;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
             transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(15, 15, 15, 0.98);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:hover {
+            color: #FFFFFF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FFFFFF;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn-nav {
+            padding: 10px 20px;
+            background: #FFFFFF;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-nav:hover {
+            background: #F3F4F6;
+            transform: translateY(-1px);
+        }
+        
+        .btn-nav-secondary {
+            padding: 10px 20px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-nav-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+        
+        .mobile-menu.active {
             display: block;
         }
         
-        .legal-nav a:hover {
-            background: #FFFFFF;
+        .mobile-nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-link:hover {
+            color: #FFFFFF;
+            padding-left: 8px;
+        }
+        
+        /* Content Container */
+        .content-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .content-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .content-title {
+            font-size: 32px;
+            font-weight: 700;
             color: #000000;
-        }
-        
-        .legal-section {
-            margin-bottom: 48px;
-        }
-        
-        .section-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 20px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #E5E7EB;
-        }
-        
-        .section-content {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #374151;
-        }
-        
-        .section-content p {
             margin-bottom: 16px;
         }
         
-        .section-content ul {
-            margin: 16px 0;
+        .content-subtitle {
+            font-size: 18px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+        
+        .content-body {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .content-body h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+            margin-top: 32px;
+        }
+        
+        .content-body h2:first-child {
+            margin-top: 0;
+        }
+        
+        .content-body h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+            margin-top: 24px;
+        }
+        
+        .content-body p {
+            font-size: 16px;
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .content-body ul, .content-body ol {
+            margin-bottom: 16px;
             padding-left: 24px;
         }
         
-        .section-content li {
+        .content-body li {
+            font-size: 16px;
+            color: #374151;
+            line-height: 1.6;
             margin-bottom: 8px;
         }
         
-        .section-content h3 {
-            font-size: 18px;
-            font-weight: 600;
+        .content-body a {
             color: #000000;
-            margin: 24px 0 12px 0;
+            text-decoration: none;
+            font-weight: 500;
         }
         
+        .content-body a:hover {
+            text-decoration: underline;
+        }
+        
+        .last-updated {
+            background: #F3F4F6;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+            font-size: 14px;
+            color: #6B7280;
+            text-align: center;
+        }
+        
+        /* Cookie Types Table */
         .cookie-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 24px 0;
             background: #FFFFFF;
-            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .cookie-table th,
-        .cookie-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid #E5E7EB;
         }
         
         .cookie-table th {
             background: #F9FAFB;
+            padding: 16px;
+            text-align: left;
             font-weight: 600;
-            color: #000000;
+            color: #374151;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .cookie-table td {
+            padding: 16px;
+            border-bottom: 1px solid #F3F4F6;
+            color: #374151;
         }
         
         .cookie-table tr:last-child td {
             border-bottom: none;
         }
         
-        .contact-info {
-            background: #F9FAFB;
+        .cookie-table tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+        
+        /* Highlight boxes */
+        .info-box {
+            background: #EFF6FF;
+            border: 1px solid #DBEAFE;
             border-radius: 12px;
-            padding: 32px;
-            margin-top: 60px;
-            text-align: center;
+            padding: 20px;
+            margin: 24px 0;
         }
         
-        .contact-title {
-            font-size: 20px;
+        .info-box h4 {
+            font-size: 18px;
             font-weight: 600;
-            color: #000000;
-            margin-bottom: 16px;
+            color: #1E40AF;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        .contact-text {
+        .info-box p {
+            color: #1E40AF;
+            margin-bottom: 0;
+        }
+        
+        .warning-box {
+            background: #FEF3C7;
+            border: 1px solid #F59E0B;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        
+        .warning-box h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #92400E;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .warning-box p {
+            color: #92400E;
+            margin-bottom: 0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0F0F0F;
+            color: #FFFFFF;
+            padding: 60px 0 30px 0;
+            margin-top: 100px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-brand {
+            max-width: 300px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+        
+        .footer-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
             font-size: 16px;
-            color: #6B7280;
+        }
+        
+        .footer-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 24px;
         }
         
-        .contact-email {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #000000;
-            color: #FFFFFF;
-            text-decoration: none;
-            border-radius: 8px;
+        .footer-column h4 {
+            font-size: 16px;
             font-weight: 600;
-            transition: background 0.3s ease;
+            margin-bottom: 20px;
+            color: #FFFFFF;
         }
         
-        .contact-email:hover {
-            background: #374151;
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
         
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-legal a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-legal a:hover {
+            color: #FFFFFF;
+        }
+        
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .legal-title {
+            body {
+                padding-top: 70px;
+            }
+            
+            .nav-container {
+                height: 70px;
+            }
+            
+            .nav-menu,
+            .nav-cta {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .content-container {
+                padding: 0 15px;
+            }
+            
+            .content-body {
+                padding: 32px 24px;
+            }
+            
+            .content-title {
                 font-size: 28px;
-            }
-            
-            .legal-nav ul {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title {
-                font-size: 20px;
             }
             
             .cookie-table {
                 font-size: 14px;
             }
+            
+            .cookie-table th,
+            .cookie-table td {
+                padding: 12px 8px;
+            }
+            
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="legal-container">
-        <div class="legal-header">
-            <h1 class="legal-title">Cookie Policy</h1>
-            <p class="legal-updated">Last updated: December 2024</p>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">B</div>
+                <span>Based Users</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html#how-it-works" class="nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+            </ul>
+            
+            <div class="nav-cta">
+                <a href="register.html" class="btn-nav-secondary">Join as Researcher</a>
+                <a href="contact.html" class="btn-nav">Get Started</a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span id="menuIcon">☰</span>
+            </button>
         </div>
         
-        <div class="legal-nav">
-            <h3>Quick Navigation</h3>
-            <ul>
-                <li><a href="#what-are-cookies">What Are Cookies</a></li>
-                <li><a href="#cookies-we-use">Cookies We Use</a></li>
-                <li><a href="#third-party-cookies">Third-Party Cookies</a></li>
-                <li><a href="#managing-cookies">Managing Cookies</a></li>
-                <li><a href="#contact-us">Contact Us</a></li>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html#how-it-works" class="mobile-nav-link">How it Works</a></li>
+                <li><a href="index.html#why-choose-us" class="mobile-nav-link">Why Us</a></li>
+                <li><a href="index.html#pricing" class="mobile-nav-link">Pricing</a></li>
+                <li><a href="index.html#faq" class="mobile-nav-link">FAQ</a></li>
+                <li><a href="register.html" class="mobile-nav-link">Join as Researcher</a></li>
+                <li><a href="contact.html" class="mobile-nav-link">Get Started</a></li>
             </ul>
         </div>
+    </nav>
 
-        <!-- Cookie Policy Content -->
-        <div class="legal-section" id="what-are-cookies">
-            <h2 class="section-title">What Are Cookies</h2>
-            <div class="section-content">
-                <p>Cookies are small text files that are stored on your device when you visit our website. They help us provide you with a better experience by remembering your preferences and analyzing how you use our platform.</p>
-                
-                <h3>Types of Cookies</h3>
-                <ul>
-                    <li><strong>Essential Cookies:</strong> Required for the website to function properly</li>
-                    <li><strong>Performance Cookies:</strong> Help us understand how visitors interact with our website</li>
-                    <li><strong>Functional Cookies:</strong> Remember your preferences and settings</li>
-                    <li><strong>Targeting Cookies:</strong> Used to deliver relevant advertisements</li>
-                </ul>
-            </div>
+    <!-- Content -->
+    <div class="content-container">
+        <div class="content-header">
+            <h1 class="content-title">Cookie Policy</h1>
+            <p class="content-subtitle">This policy explains how Based Users uses cookies and similar technologies on our platform.</p>
         </div>
 
-        <div class="legal-section" id="cookies-we-use">
-            <h2 class="section-title">Cookies We Use</h2>
-            <div class="section-content">
-                <h3>Essential Cookies</h3>
-                <table class="cookie-table">
-                    <thead>
-                        <tr>
-                            <th>Cookie Name</th>
-                            <th>Purpose</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>session_id</td>
-                            <td>Maintains your login session</td>
-                            <td>Session</td>
-                        </tr>
-                        <tr>
-                            <td>csrf_token</td>
-                            <td>Security protection against attacks</td>
-                            <td>Session</td>
-                        </tr>
-                        <tr>
-                            <td>user_preferences</td>
-                            <td>Stores your account preferences</td>
-                            <td>1 year</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <h3>Analytics Cookies</h3>
-                <table class="cookie-table">
-                    <thead>
-                        <tr>
-                            <th>Cookie Name</th>
-                            <th>Purpose</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>_ga</td>
-                            <td>Google Analytics - tracks unique visitors</td>
-                            <td>2 years</td>
-                        </tr>
-                        <tr>
-                            <td>_gid</td>
-                            <td>Google Analytics - tracks user interactions</td>
-                            <td>24 hours</td>
-                        </tr>
-                        <tr>
-                            <td>_gat</td>
-                            <td>Google Analytics - throttles request rate</td>
-                            <td>1 minute</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="content-body">
+            <div class="last-updated">
+                <strong>Last updated:</strong> December 1, 2024
             </div>
-        </div>
 
-        <div class="legal-section" id="third-party-cookies">
-            <h2 class="section-title">Third-Party Cookies</h2>
-            <div class="section-content">
-                <h3>Payment Processing</h3>
-                <ul>
-                    <li><strong>Stripe:</strong> Processes secure payments and prevents fraud</li>
-                    <li><strong>PayPal:</strong> Handles user compensation payments</li>
-                </ul>
-                
-                <h3>Analytics and Performance</h3>
-                <ul>
-                    <li><strong>Google Analytics:</strong> Helps us understand website usage and improve user experience</li>
-                    <li><strong>Webflow:</strong> Website hosting platform analytics</li>
-                </ul>
-                
-                <h3>Communication</h3>
-                <ul>
-                    <li><strong>Email Service Providers:</strong> Track email delivery and engagement</li>
-                    <li><strong>Support Chat:</strong> Provide customer support functionality</li>
-                </ul>
+            <h2>1. What Are Cookies?</h2>
+            <p>Cookies are small text files that are placed on your computer or mobile device when you visit our website. They are widely used to make websites work more efficiently and to provide information to website owners.</p>
+            
+            <p>Cookies help us understand how you use our platform, remember your preferences, and improve your overall experience. We are committed to being transparent about how we use cookies and giving you control over your cookie preferences.</p>
+
+            <h2>2. How We Use Cookies</h2>
+            <p>Based Users uses cookies for the following purposes:</p>
+            <ul>
+                <li><strong>Essential functionality:</strong> To enable basic website features and user authentication</li>
+                <li><strong>Performance monitoring:</strong> To understand how visitors interact with our platform</li>
+                <li><strong>User preferences:</strong> To remember your settings and personalize your experience</li>
+                <li><strong>Security:</strong> To protect against fraud and abuse</li>
+                <li><strong>Analytics:</strong> To analyze platform usage and improve our services</li>
+            </ul>
+
+            <h2>3. Types of Cookies We Use</h2>
+            
+            <h3>Essential Cookies</h3>
+            <p>These cookies are necessary for the platform to function properly. They enable basic features like page navigation, user authentication, and access to secure areas. These cookies do not store any personally identifiable information.</p>
+
+            <h3>Performance Cookies</h3>
+            <p>These cookies collect information about how visitors use our platform, such as which pages are visited most often and if they get error messages. This data helps us improve how our platform works.</p>
+
+            <h3>Functionality Cookies</h3>
+            <p>These cookies allow the platform to remember choices you make (such as your username, language preference, or research interests) and provide enhanced, more personal features.</p>
+
+            <h3>Analytics Cookies</h3>
+            <p>We use analytics cookies to understand how our platform is being used and to identify areas for improvement. These cookies help us analyze user behavior patterns and platform performance.</p>
+
+            <h2>4. Specific Cookies We Use</h2>
+            <table class="cookie-table">
+                <thead>
+                    <tr>
+                        <th>Cookie Name</th>
+                        <th>Purpose</th>
+                        <th>Duration</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>session_token</td>
+                        <td>Maintains user login session</td>
+                        <td>Session (expires when browser closes)</td>
+                        <td>Essential</td>
+                    </tr>
+                    <tr>
+                        <td>user_preferences</td>
+                        <td>Stores user settings and preferences</td>
+                        <td>30 days</td>
+                        <td>Functionality</td>
+                    </tr>
+                    <tr>
+                        <td>csrf_token</td>
+                        <td>Security protection against cross-site attacks</td>
+                        <td>Session</td>
+                        <td>Essential</td>
+                    </tr>
+                    <tr>
+                        <td>analytics_id</td>
+                        <td>Anonymous user tracking for platform analytics</td>
+                        <td>2 years</td>
+                        <td>Analytics</td>
+                    </tr>
+                    <tr>
+                        <td>language_pref</td>
+                        <td>Remembers selected language</td>
+                        <td>1 year</td>
+                        <td>Functionality</td>
+                    </tr>
+                    <tr>
+                        <td>research_filters</td>
+                        <td>Saves research preference filters</td>
+                        <td>90 days</td>
+                        <td>Functionality</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>5. Third-Party Cookies</h2>
+            <p>We may use third-party services that place their own cookies on your device. These services include:</p>
+            <ul>
+                <li><strong>Google Analytics:</strong> For website traffic analysis and user behavior insights</li>
+                <li><strong>PayPal:</strong> For processing payments to research participants</li>
+                <li><strong>Intercom:</strong> For customer support and messaging</li>
+                <li><strong>Stripe:</strong> For processing client payments securely</li>
+            </ul>
+            <p>These third-party services have their own privacy policies governing their use of cookies. We encourage you to review their policies to understand how they use cookies and other tracking technologies.</p>
+
+            <h2>6. Managing Your Cookie Preferences</h2>
+            
+            <div class="info-box">
+                <h4>🔧 Browser Settings</h4>
+                <p>You can control cookies through your browser settings. Most browsers allow you to view, manage, and delete cookies. Note that disabling essential cookies may affect platform functionality.</p>
             </div>
-        </div>
 
-        <div class="legal-section" id="managing-cookies">
-            <h2 class="section-title">Managing Your Cookie Preferences</h2>
-            <div class="section-content">
-                <h3>Browser Settings</h3>
-                <p>You can control and manage cookies through your browser settings:</p>
-                <ul>
-                    <li><strong>Chrome:</strong> Settings > Privacy and security > Cookies and other site data</li>
-                    <li><strong>Firefox:</strong> Settings > Privacy & Security > Cookies and Site Data</li>
-                    <li><strong>Safari:</strong> Preferences > Privacy > Manage Website Data</li>
-                    <li><strong>Edge:</strong> Settings > Cookies and site permissions</li>
-                </ul>
-                
-                <h3>Impact of Disabling Cookies</h3>
-                <p>Please note that disabling certain cookies may affect your experience:</p>
-                <ul>
-                    <li>You may need to log in repeatedly</li>
-                    <li>Your preferences may not be saved</li>
-                    <li>Some features may not function properly</li>
-                    <li>We may not be able to provide personalized content</li>
-                </ul>
-                
-                <h3>Opt-Out Options</h3>
-                <ul>
-                    <li><strong>Google Analytics:</strong> <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">Google Analytics Opt-out Browser Add-on</a></li>
-                    <li><strong>Do Not Track:</strong> We respect browser "Do Not Track" signals</li>
-                    <li><strong>Contact Us:</strong> Email us to discuss specific cookie preferences</li>
-                </ul>
+            <h3>Browser-Specific Instructions</h3>
+            <ul>
+                <li><strong>Chrome:</strong> Settings → Privacy and Security → Site Settings → Cookies</li>
+                <li><strong>Firefox:</strong> Settings → Privacy & Security → Cookies and Site Data</li>
+                <li><strong>Safari:</strong> Preferences → Privacy → Manage Website Data</li>
+                <li><strong>Edge:</strong> Settings → Site permissions → Cookies and stored data</li>
+            </ul>
+
+            <h3>Cookie Consent Management</h3>
+            <p>When you first visit our platform, you'll see a cookie consent banner where you can accept or customize your cookie preferences. You can change these preferences at any time by:</p>
+            <ul>
+                <li>Clicking the "Cookie Settings" link in our footer</li>
+                <li>Accessing your account preferences</li>
+                <li>Using the cookie management options in your browser</li>
+            </ul>
+
+            <h2>7. Do Not Track Signals</h2>
+            <p>We respect browser "Do Not Track" signals where technically feasible. When we detect that your browser is sending a Do Not Track signal, we will not set non-essential tracking cookies.</p>
+
+            <h2>8. Cookie Retention</h2>
+            <p>Different cookies have different retention periods:</p>
+            <ul>
+                <li><strong>Session cookies:</strong> Deleted when you close your browser</li>
+                <li><strong>Persistent cookies:</strong> Remain until their expiration date or until you delete them</li>
+                <li><strong>Functional cookies:</strong> Typically expire after 30 days to 1 year</li>
+                <li><strong>Analytics cookies:</strong> Usually expire after 2 years</li>
+            </ul>
+
+            <h2>9. Data Protection and Privacy</h2>
+            <p>Cookie data is handled according to our Privacy Policy and applicable data protection laws. We implement appropriate security measures to protect cookie data and only use it for the stated purposes.</p>
+
+            <div class="warning-box">
+                <h4>⚠️ Important Note</h4>
+                <p>Essential cookies cannot be disabled as they are necessary for the basic functionality of our research platform, including user authentication and security features.</p>
             </div>
-        </div>
 
-        <!-- Contact Section -->
-        <div class="contact-info" id="contact-us">
-            <h3 class="contact-title">Cookie Questions?</h3>
-            <p class="contact-text">
-                If you have questions about our use of cookies or want to manage your preferences, please contact us.
-            </p>
-            <a href="mailto:privacy@basedusers.com" class="contact-email">Contact Privacy Team</a>
+            <h2>10. Changes to This Cookie Policy</h2>
+            <p>We may update this Cookie Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. We will notify you of any material changes by:</p>
+            <ul>
+                <li>Posting the updated policy on our website</li>
+                <li>Updating the "Last updated" date at the top of this policy</li>
+                <li>Sending email notifications for significant changes (where required)</li>
+            </ul>
+
+            <h2>11. Contact Us About Cookies</h2>
+            <p>If you have any questions about our use of cookies or this Cookie Policy, please contact us:</p>
+            <ul>
+                <li>Email: <a href="mailto:privacy@basedusers.com">privacy@basedusers.com</a></li>
+                <li>Address: Based Users, 123 Research Ave, San Francisco, CA 94105</li>
+                <li>Phone: +1 (555) 123-4567</li>
+            </ul>
+
+            <div class="info-box">
+                <h4>📚 Additional Resources</h4>
+                <p>For more information about cookies and how to manage them, visit <a href="https://www.aboutcookies.org" target="_blank">aboutcookies.org</a> or <a href="https://www.allaboutcookies.org" target="_blank">allaboutcookies.org</a>.</p>
+            </div>
+
+            <p>By continuing to use Based Users platform, you consent to our use of cookies as described in this policy.</p>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <div class="footer-logo-icon">B</div>
+                        <span>Based Users</span>
+                    </a>
+                    <p class="footer-description">
+                        Get real user feedback for your AI products in 48 hours. Connect with 100k+ verified AI users and make data-driven product decisions.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#how-it-works">How it Works</a></li>
+                        <li><a href="index.html#why-choose-us">Why Us</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
+                        <li><a href="contact.html">Get Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>For Users</h4>
+                    <ul class="footer-links">
+                        <li><a href="register.html">Join as Researcher</a></li>
+                        <li><a href="#earnings">How Much Can I Earn?</a></li>
+                        <li><a href="#requirements">Requirements</a></li>
+                        <li><a href="#getting-started">Getting Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 Based Users. All rights reserved.
+                </div>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-service.html">Terms of Service</a>
+                    <a href="cookie-policy.html">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            menuIcon.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+        });
+    </script>
 </body>
 </html>
