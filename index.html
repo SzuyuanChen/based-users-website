@@ -706,6 +706,172 @@
             color: #6B7280;
             line-height: 1.6;
         }
+
+        /* Live Stats Section */
+        .live-stats-section {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .live-stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .live-stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .live-stats-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 50px;
+            padding: 8px 16px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #10B981;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .live-stats-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+        }
+
+        .live-stats-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #10B981, #059669);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover .stat-icon {
+            background: #10B981;
+            transform: scale(1.1);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+            display: block;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', 'Monaco', monospace;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .stat-change.positive {
+            color: #10B981;
+        }
+
+        .stat-change.neutral {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .update-time {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
         
         /* FAQ */
         .faq-section {
@@ -931,6 +1097,227 @@
         .footer-legal a:hover {
             color: #FFFFFF;
         }
+
+        /* Pricing Section Styles */
+        .pricing-section {
+            background: #FFFFFF;
+            padding: 100px 20px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .pricing-card {
+            background: #FFFFFF;
+            border: 2px solid #E5E7EB;
+            border-radius: 20px;
+            padding: 40px 32px;
+            position: relative;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #000000;
+        }
+
+        .pricing-card.featured {
+            border-color: #000000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: #FFFFFF;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .pricing-header {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .pricing-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        .pricing-subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 24px;
+        }
+
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .price-amount {
+            font-size: 48px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .price-unit {
+            font-size: 16px;
+            color: #6B7280;
+        }
+
+        .pricing-features {
+            margin-bottom: 32px;
+        }
+
+        .features-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #374151;
+        }
+
+        .features-list svg {
+            color: #10B981;
+            flex-shrink: 0;
+        }
+
+        .pricing-cta {
+            text-align: center;
+        }
+
+        .pricing-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 16px 32px;
+            background: transparent;
+            color: #000000;
+            text-decoration: none;
+            border: 2px solid #000000;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .pricing-btn:hover {
+            background: #000000;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn.featured {
+            background: #000000;
+            color: #FFFFFF;
+        }
+
+        .pricing-btn.featured:hover {
+            background: #374151;
+        }
+
+        .pricing-note {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .pricing-bottom {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            padding-top: 60px;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .pricing-guarantee {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .guarantee-icon {
+            width: 64px;
+            height: 64px;
+            background: #F3F4F6;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .guarantee-icon svg {
+            color: #10B981;
+        }
+
+        .guarantee-content h4 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        .guarantee-content p {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        .pricing-custom {
+            text-align: center;
+        }
+
+        .pricing-custom h4 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .pricing-custom p {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        .pricing-custom a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .pricing-custom a:hover {
+            text-decoration: underline;
+        }
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
@@ -989,6 +1376,47 @@
             .values-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .stat-card {
+                padding: 24px 16px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .live-stats-title {
+                font-size: 24px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .pricing-card.featured {
+                transform: none;
+            }
+            
+            .pricing-card.featured:hover {
+                transform: translateY(-8px);
+            }
+            
+            .pricing-bottom {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .pricing-guarantee {
+                flex-direction: column;
+                text-align: center;
             }
             
             .footer-main {
@@ -1346,6 +1774,67 @@
             </div>
         </div>
     </section>
+
+    <!-- Live Stats Section -->
+    <section class="live-stats-section">
+        <div class="live-stats-container">
+            <div class="live-stats-header">
+                <div class="live-indicator">
+                    <div class="live-dot"></div>
+                    <span>Live Data</span>
+                </div>
+                <h2 class="live-stats-title">Research in Progress</h2>
+                <p class="live-stats-subtitle">Real-time activity on our platform</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🚀</div>
+                    <span class="stat-number" id="activeProjects">12</span>
+                    <div class="stat-label">Active Projects</div>
+                    <div class="stat-change positive">
+                        <span>+3</span>
+                        <span>since yesterday</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <span class="stat-number" id="onlineUsers">847</span>
+                    <div class="stat-label">Researchers Online</div>
+                    <div class="stat-change positive">
+                        <span>+124</span>
+                        <span>this hour</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <span class="stat-number" id="avgResponseTime">23</span>
+                    <div class="stat-label">Avg Response (min)</div>
+                    <div class="stat-change positive">
+                        <span>-5min</span>
+                        <span>improvement</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <span class="stat-number" id="totalEarnings">$2.1K</span>
+                    <div class="stat-label">Paid Today</div>
+                    <div class="stat-change positive">
+                        <span>+$340</span>
+                        <span>last hour</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="update-time">
+                Last updated: <span id="lastUpdate">2 seconds ago</span>
+            </div>
+        </div>
+    </section>
+
 <!-- Pricing Section -->
 <section class="pricing-section" id="pricing">
     <div class="container">
@@ -1537,255 +2026,6 @@
     </div>
 </section>
 
-<style>
-/* Pricing Section Styles */
-.pricing-section {
-    background: #FFFFFF;
-    padding: 100px 20px;
-}
-
-.pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px;
-    margin-bottom: 80px;
-}
-
-.pricing-card {
-    background: #FFFFFF;
-    border: 2px solid #E5E7EB;
-    border-radius: 20px;
-    padding: 40px 32px;
-    position: relative;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.pricing-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    border-color: #000000;
-}
-
-.pricing-card.featured {
-    border-color: #000000;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
-}
-
-.pricing-card.featured:hover {
-    transform: scale(1.05) translateY(-8px);
-}
-
-.featured-badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #000000;
-    color: #FFFFFF;
-    padding: 8px 24px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.pricing-header {
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid #E5E7EB;
-}
-
-.pricing-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #000000;
-    margin-bottom: 8px;
-}
-
-.pricing-subtitle {
-    font-size: 16px;
-    color: #6B7280;
-    margin-bottom: 24px;
-}
-
-.pricing-price {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 8px;
-}
-
-.price-amount {
-    font-size: 48px;
-    font-weight: 700;
-    color: #000000;
-}
-
-.price-unit {
-    font-size: 16px;
-    color: #6B7280;
-}
-
-.pricing-features {
-    margin-bottom: 32px;
-}
-
-.features-list {
-    list-style: none;
-    text-align: left;
-}
-
-.features-list li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-    font-size: 16px;
-    color: #374151;
-}
-
-.features-list svg {
-    color: #10B981;
-    flex-shrink: 0;
-}
-
-.pricing-cta {
-    text-align: center;
-}
-
-.pricing-btn {
-    display: inline-block;
-    width: 100%;
-    padding: 16px 32px;
-    background: transparent;
-    color: #000000;
-    text-decoration: none;
-    border: 2px solid #000000;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    margin-bottom: 12px;
-}
-
-.pricing-btn:hover {
-    background: #000000;
-    color: #FFFFFF;
-    transform: translateY(-2px);
-}
-
-.pricing-btn.featured {
-    background: #000000;
-    color: #FFFFFF;
-}
-
-.pricing-btn.featured:hover {
-    background: #374151;
-}
-
-.pricing-note {
-    font-size: 14px;
-    color: #6B7280;
-}
-
-.pricing-bottom {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-    padding-top: 60px;
-    border-top: 1px solid #E5E7EB;
-}
-
-.pricing-guarantee {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.guarantee-icon {
-    width: 64px;
-    height: 64px;
-    background: #F3F4F6;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.guarantee-icon svg {
-    color: #10B981;
-}
-
-.guarantee-content h4 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #000000;
-    margin-bottom: 8px;
-}
-
-.guarantee-content p {
-    font-size: 16px;
-    color: #6B7280;
-    line-height: 1.5;
-}
-
-.pricing-custom {
-    text-align: center;
-}
-
-.pricing-custom h4 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #000000;
-    margin-bottom: 12px;
-}
-
-.pricing-custom p {
-    font-size: 16px;
-    color: #6B7280;
-    line-height: 1.5;
-}
-
-.pricing-custom a {
-    color: #000000;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.pricing-custom a:hover {
-    text-decoration: underline;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .pricing-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-    
-    .pricing-card.featured {
-        transform: none;
-    }
-    
-    .pricing-card.featured:hover {
-        transform: translateY(-8px);
-    }
-    
-    .pricing-bottom {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-    
-    .pricing-guarantee {
-        flex-direction: column;
-        text-align: center;
-    }
-}
-</style>
     <!-- FAQ Section -->
     <section class="faq-section" id="faq">
         <div class="container">
@@ -1924,8 +2164,8 @@
                     <h4>For Users</h4>
                     <ul class="footer-links">
                         <li><a href="register.html">Join as Researcher</a></li>
-                        <li><a href="#earnings">How Much Can I Earn?</a></li>
-                        <li><a href="#requirements">Requirements</a></li>
+                        <li><a href="earnings.html">How Much Can I Earn?</a></li>
+                        <li><a href="requirements.html">Requirements</a></li>
                         <li><a href="#getting-started">Getting Started</a></li>
                     </ul>
                 </div>
@@ -1933,10 +2173,10 @@
                 <div class="footer-column">
                     <h4>Company</h4>
                     <ul class="footer-links">
-                        <li><a href="/about">About Us</a></li>
+                        <li><a href="about.html">About Us</a></li>
                         <li><a href="contact.html" >Contact</a></li>
-                        <li><a href="#careers">Careers</a></li>
-                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
             </div>
@@ -2025,6 +2265,43 @@
                 }
             });
         });
+
+        // Live Stats functionality
+        let projectCount = 12;
+        let onlineUsers = 847;
+        let responseTime = 23;
+        let earnings = 2100;
+
+        function updateStats() {
+            // Simulate realistic fluctuations
+            projectCount += Math.random() > 0.7 ? (Math.random() > 0.5 ? 1 : -1) : 0;
+            onlineUsers += Math.floor((Math.random() - 0.5) * 20);
+            responseTime += Math.floor((Math.random() - 0.5) * 3);
+            earnings += Math.floor(Math.random() * 50);
+
+            // Keep values in realistic ranges
+            projectCount = Math.max(8, Math.min(25, projectCount));
+            onlineUsers = Math.max(600, Math.min(1200, onlineUsers));
+            responseTime = Math.max(15, Math.min(45, responseTime));
+
+            // Update display
+            document.getElementById('activeProjects').textContent = projectCount;
+            document.getElementById('onlineUsers').textContent = onlineUsers.toLocaleString();
+            document.getElementById('avgResponseTime').textContent = responseTime;
+            document.getElementById('totalEarnings').textContent = `${(earnings / 1000).toFixed(1)}K`;
+
+            // Update timestamp
+            document.getElementById('lastUpdate').textContent = 'Just now';
+            setTimeout(() => {
+                document.getElementById('lastUpdate').textContent = '2 seconds ago';
+            }, 2000);
+        }
+
+        // Update stats every 8 seconds
+        setInterval(updateStats, 8000);
+
+        // Initial update after page loads
+        updateStats();
     </script>
 </body>
 </html>
