@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Based Users - AI User Research Made Simple</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding-top: 80px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(15, 15, 15, 0.98);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:hover {
+            color: #FFFFFF;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FFFFFF;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn-nav {
+            padding: 10px 20px;
+            background: #FFFFFF;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-nav:hover {
+            background: #F3F4F6;
+            transform: translateY(-1px);
+        }
+        
+        .btn-nav-secondary {
+            padding: 10px 20px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-nav-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        .mobile-nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-link:hover {
+            color: #FFFFFF;
+            padding-left: 8px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 8px 20px;
+            margin-bottom: 32px;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .hero-title {
+            font-size: 64px;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-title .highlight {
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 22px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: #FFFFFF;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-primary:hover {
+            background: #F3F4F6;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: transparent;
+            color: #FFFFFF;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .hero-trust {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .trust-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 20px;
+        }
+        
+        .trust-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .trust-stat {
+            text-align: center;
+        }
+        
+        .trust-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFFFFF;
+            display: block;
+        }
+        
+        .trust-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Dual Value Section */
+        .dual-value {
+            padding: 100px 20px;
+            background: #F9FAFB;
+        }
+        
+        .dual-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .dual-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .dual-title {
+            font-size: 40px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+        
+        .dual-subtitle {
+            font-size: 18px;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .dual-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: stretch;
+        }
+        
+        .value-block {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .value-block:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #000000;
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            transition: all 0.3s ease;
+        }
+        
+        .value-block:hover .value-icon {
+            background: #000000;
+            transform: scale(1.1);
+        }
+        
+        .value-block:hover .value-icon svg {
+            stroke: #FFFFFF;
+        }
+        
+        .value-block-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+        
+        .value-block-subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .value-features {
+            list-style: none;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+        
+        .value-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #374151;
+        }
+        
+        .value-features .check-icon {
+            width: 20px;
+            height: 20px;
+            background: #10B981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .value-cta {
+            display: inline-block;
+            padding: 16px 32px;
+            background: #000000;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .value-cta:hover {
+            background: #374151;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        .value-cta.secondary {
+            background: transparent;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+        
+        .value-cta.secondary:hover {
+            background: #000000;
+            color: #FFFFFF;
+        }
+        
+        /* How it Works */
+        .how-it-works {
+            background: #FFFFFF;
+            padding: 100px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 40px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            position: relative;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            border: 3px solid #E5E7EB;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .step:hover .step-icon {
+            background: #000000;
+            border-color: #000000;
+            transform: translateY(-4px);
+        }
+        
+        .step:hover .step-icon svg {
+            stroke: #FFFFFF;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: #000000;
+            color: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .step-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+        
+        .step-description {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.5;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+        
+        .connection-line {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 15%, #E5E7EB 15%, #E5E7EB 85%, transparent 85%);
+            z-index: 1;
+        }
+        
+        /* Brand Values */
+        .brand-values {
+            background: #F9FAFB;
+            padding: 100px 20px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .value-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            border-color: #000000;
+        }
+        
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #000000, #374151);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .value-card .value-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover .value-icon {
+            background: #000000;
+            transform: scale(1.1);
+        }
+        
+        .value-card:hover .value-icon svg {
+            stroke: #FFFFFF;
+        }
+        
+        .value-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+        
+        .value-description {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+        
+        /* FAQ */
+        .faq-section {
+            background: #FFFFFF;
+            padding: 100px 20px;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #E5E7EB;
+            margin-bottom: 0;
+        }
+        
+        .faq-question {
+            width: 100%;
+            padding: 24px 0;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            color: #374151;
+        }
+        
+        .faq-icon {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+        
+        .faq-answer-content {
+            padding-bottom: 24px;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
+            padding: 100px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+        
+        .cta-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0F0F0F;
+            color: #FFFFFF;
+            padding: 60px 0 30px 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-brand {
+            max-width: 300px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+        
+        .footer-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+            font-size: 16px;
+        }
+        
+        .footer-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+        }
+        
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-legal a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-legal a:hover {
+            color: #FFFFFF;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .nav-container {
+                height: 70px;
+            }
+            
+            .nav-menu,
+            .nav-cta {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 42px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                max-width: 300px;
+                margin: 0 auto 40px auto;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .dual-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .steps-container {
+                flex-direction: column;
+                gap: 50px;
+            }
+            
+            .connection-line {
+                display: none;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <div class="logo-icon">B</div>
+                <span>Based Users</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#how-it-works" class="nav-link">How it Works</a></li>
+                <li><a href="#why-choose-us" class="nav-link">Why Us</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+            </ul>
+            
+            <div class="nav-cta">
+                <a href="/register" class="btn-nav-secondary">Join as Researcher</a>
+                <a href="/contact" class="btn-nav">Get Started</a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span id="menuIcon">☰</span>
+            </button>
+        </div>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="#how-it-works" class="mobile-nav-link">How it Works</a></li>
+                <li><a href="#why-choose-us" class="mobile-nav-link">Why Us</a></li>
+                <li><a href="#pricing" class="mobile-nav-link">Pricing</a></li>
+                <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+                <li><a href="/register" class="mobile-nav-link">Join as Researcher</a></li>
+                <li><a href="/contact" class="mobile-nav-link">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <div class="hero-badge-dot"></div>
+                    <span>Trusted by 100+ AI startups</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    AI User Research<br>
+                    <span class="highlight">Made Simple</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Connect with verified AI users and get actionable insights in 48 hours. No complex setup, no lengthy contracts, just real feedback from real users.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="/contact" class="btn-primary">
+                        Start Your Research
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="7" y1="17" x2="17" y2="7"/>
+                            <polyline points="7,7 17,7 17,17"/>
+                        </svg>
+                    </a>
+                    <a href="/register" class="btn-secondary">
+                        Join as Researcher & Earn
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="hero-trust">
+                    <p class="trust-text">Join the AI research revolution</p>
+                    <div class="trust-stats">
+                        <div class="trust-stat">
+                            <span class="trust-number">100k+</span>
+                            <span class="trust-label">Verified Users</span>
+                        </div>
+                        <div class="trust-stat">
+                            <span class="trust-number">48hrs</span>
+                            <span class="trust-label">Avg Delivery</span>
+                        </div>
+                        <div class="trust-stat">
+                            <span class="trust-number">95%</span>
+                            <span class="trust-label">Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Value Proposition -->
+    <section class="dual-value">
+        <div class="dual-container">
+            <div class="dual-header">
+                <h2 class="dual-title">Built for Everyone in AI</h2>
+                <p class="dual-subtitle">Whether you're building AI products or passionate about AI technology, Based Users connects you with the right opportunities</p>
+            </div>
+            
+            <div class="dual-grid">
+                <!-- For AI Companies -->
+                <div class="value-block">
+                    <div class="value-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="value-block-title">For AI Companies</h3>
+                    <p class="value-block-subtitle">Get real user feedback to build better AI products</p>
+                    
+                    <ul class="value-features">
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            100k+ verified AI users ready to test
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            48-hour delivery of actionable insights
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Filter by experience, industry, use cases
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Detailed reports with recommendations
+                        </li>
+                    </ul>
+                    
+                    <a href="/contact" class="value-cta">Start Your Research</a>
+                </div>
+                
+                <!-- For AI Users -->
+                <div class="value-block">
+                    <div class="value-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="value-block-title">For AI Enthusiasts</h3>
+                    <p class="value-block-subtitle">Share your expertise and earn money testing AI products</p>
+                    
+                    <ul class="value-features">
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Earn $15-45 per research session
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Test cutting-edge AI products first
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Flexible schedule, work from anywhere
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            Shape the future of AI products
+                        </li>
+                    </ul>
+                    
+                    <a href="/register" class="value-cta secondary">Join as Researcher</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How it Works</h2>
+                <p class="section-subtitle">Get actionable user insights for your AI product in just three simple steps. No lengthy contracts, no complex setup.</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="connection-line"></div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <div class="step-number">1</div>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Select Users</h3>
+                    <p class="step-description">Choose from 100k+ verified AI users by skill level, experience, and specific interests. Filter by exactly what you need.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <div class="step-number">2</div>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Launch Research</h3>
+                    <p class="step-description">Create your research project with custom questions. We automatically match and notify the most relevant users for participation.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <div class="step-number">3</div>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Get Results</h3>
+                    <p class="step-description">Receive detailed user feedback and actionable insights within 48 hours. Export data or integrate directly with your existing tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="brand-values" id="why-choose-us">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why AI Companies Choose Based Users</h2>
+                <p class="section-subtitle">Real users, real insights, real results - without the traditional research hassle</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4"/>
+                            <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                            <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+                            <path d="M3 12c0 5.5 4.5 10 10 10s10-4.5 10-10"/>
+                        </svg>
+                    </div>
+                    <h3 class="value-title">Quality Users</h3>
+                    <p class="value-description">100k+ verified AI enthusiasts and professionals, not random surveys. Each user is manually screened for relevant experience and expertise.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12,6 12,12 16,14"/>
+                        </svg>
+                    </div>
+                    <h3 class="value-title">Fast Results</h3>
+                    <p class="value-description">Get actionable insights in 48 hours, not weeks of waiting. Our streamlined process and engaged user base ensures rapid, quality feedback.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <h3 class="value-title">Transparent Process</h3>
+                    <p class="value-description">See exactly where your money goes and how users are selected. Full visibility into user matching, participation, and reward distribution.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="value-title">Flexible Research</h3>
+                    <p class="value-description">From quick 15-minute tests to detailed 45-minute interviews. Customize questions, target specific user segments, and scale as needed.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                            <path d="M9 14l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <h3 class="value-title">Actionable Reports</h3>
+                    <p class="value-description">Detailed insights with user quotes, behavior patterns, and specific recommendations. Data you can immediately act on to improve your product.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="value-title">Expert Support</h3>
+                    <p class="value-description">Our team helps design effective research questions, select optimal user groups, and interpret results for maximum impact on your product decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Everything you need to know about our AI user research platform</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do you verify user quality?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            We manually verify each user's AI experience through portfolio review, LinkedIn validation, and initial screening questionnaires. Each user is tested for real AI tool usage and technical understanding.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What types of AI products can you research?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            We cover AI tools, hardware, developer APIs, enterprise solutions, and consumer AI applications. From ChatGPT competitors to specialized business AI tools.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How fast can I get results?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Most research projects are completed within 48-72 hours after user matching. Enterprise projects may take up to 1 week for comprehensive analysis.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I choose specific user types?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes, you can filter by experience level, industry, technical background, specific AI tool usage, company size, and job roles to get exactly the right feedback.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do users get paid?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Users are paid within 48 hours via PayPal after completing research sessions. Payment ranges from $15-45 depending on session length and complexity.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Do you offer refunds?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes, if you're not satisfied with the research quality, we offer full refunds within 7 days. We stand behind our user quality and insights.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Ready to Get Started?</h2>
+            <p class="cta-subtitle">Join 100+ AI companies who've made better product decisions with real user feedback. Start your first research project in minutes.</p>
+            
+            <div class="cta-buttons">
+                <a href="/contact" class="btn-primary">
+                    Start Your Research
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="7" y1="17" x2="17" y2="7"/>
+                        <polyline points="7,7 17,7 17,17"/>
+                    </svg>
+                </a>
+                <a href="/register" class="btn-secondary">
+                    Join as Researcher
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="/" class="footer-logo">
+                        <div class="footer-logo-icon">B</div>
+                        <span>Based Users</span>
+                    </a>
+                    <p class="footer-description">
+                        Get real user feedback for your AI products in 48 hours. Connect with 100k+ verified AI users and make data-driven product decisions.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#how-it-works">How it Works</a></li>
+                        <li><a href="#why-choose-us">Why Us</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="/contact">Get Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>For Users</h4>
+                    <ul class="footer-links">
+                        <li><a href="/register">Join as Researcher</a></li>
+                        <li><a href="#earnings">How Much Can I Earn?</a></li>
+                        <li><a href="#requirements">Requirements</a></li>
+                        <li><a href="#getting-started">Getting Started</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 Based Users. All rights reserved.
+                </div>
+                <div class="footer-legal">
+                    <a href="/privacy-policy">Privacy Policy</a>
+                    <a href="/terms-of-service">Terms of Service</a>
+                    <a href="/cookie-policy">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            menuIcon.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // FAQ functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const icon = item.querySelector('.faq-icon');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            otherItem.querySelector('.faq-icon').textContent = '+';
+                        }
+                    });
+                    
+                    // Toggle current item
+                    if (isActive) {
+                        item.classList.remove('active');
+                        icon.textContent = '+';
+                    } else {
+                        item.classList.add('active');
+                        icon.textContent = '−';
+                    }
+                });
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('active');
+                    menuIcon.textContent = '☰';
+                    
+                    // Smooth scroll with offset for fixed navbar
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
